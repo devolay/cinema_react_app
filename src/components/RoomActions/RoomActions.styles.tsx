@@ -12,7 +12,7 @@ export const Button = styled.button`
   width: 180px;
   height: 60px;
   border: none;
-  background-color: #00a8ff;
+  background-color: #314455;
   color: #fff;
   font-size: 18px;
   border-radius: 6px;
@@ -21,6 +21,6 @@ export const Button = styled.button`
   transition: 0.3s linear;
   &:hover {
     transform: rotateX(15deg);
-    box-shadow: 0 15px 15px #00a8ff;
+    box-shadow: 0 15px 15px #644e5b;
   }
 `;

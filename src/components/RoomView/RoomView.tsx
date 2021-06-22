@@ -2,7 +2,7 @@ import * as Types from "./RoomView.types";
 import * as Styles from "./RoomView.styles";
 import SeatItem from "components/SeatItem";
 import { splitEvery } from "ramda";
-import { SeatInfo } from "shared/types";
+import { SeatInfo, SeatInfoExtended } from "shared/types";
 import { useRef, useState } from "react";
 import RoomActions from "components/RoomActions";
 import RoomInfo from "components/RoomInfo/RoomInfo";
@@ -11,47 +11,71 @@ const RoomView = ({ seatsData, setSeatsData }: Types.Props) => {
   const [selectedSeats, setSelectedSeats] =
     useState<SeatInfo[] & { notConfirmed?: boolean }>(seatsData);
 
-  const userId = useRef(0);
+  const [actualPrice, setActualPrice] = useState(0);
+
+  const userId = useRef(3);
 
   const seatRows = splitEvery(6, selectedSeats);
 
+  const calculatePrice = (selectedSeats: SeatInfoExtended[]) => {
+    const selected = selectedSeats.filter((seat) => seat.userId === userId.current.toString());
+    return selected.reduce((prev, cur) => {
+      return prev + cur.price;
+    }, 0);
+  };
+
   const clickHandler = (seat: SeatInfo) => {
-    if (userId.current.toString() === seat.userId || !seat.userId)
+    if (userId.current.toString() === seat.userId || !seat.userId) {
       setSelectedSeats((prevState) =>
         prevState.map((prevSeat) =>
           prevSeat.id === seat.id
             ? {
                 ...seat,
-                notConfirmed: true,
-                userId: prevSeat.userId ? undefined : (userId.current++).toString(),
+                notConfirmed: prevSeat.userId
+                  ? prevSeat.userId === userId.current.toString()
+                    ? false
+                    : true
+                  : true,
+                userId: prevSeat.userId
+                  ? prevSeat.userId === userId.current.toString()
+                    ? undefined
+                    : userId.current.toString()
+                  : userId.current.toString(),
               }
             : prevSeat
         )
       );
+    }
+    setActualPrice(() => calculatePrice(selectedSeats));
   };
 
   const confirmHandler = () => {
     const selectedSeatsMap = selectedSeats.map((seat) => ({ ...seat, notConfirmed: undefined }));
     setSeatsData(selectedSeatsMap);
     setSelectedSeats(selectedSeatsMap);
+    setActualPrice(0);
+    userId.current++;
   };
 
   const cancelHandler = () => {
     setSelectedSeats(seatsData);
+    setActualPrice(0);
   };
 
   return (
     <Styles.Container>
-      <RoomInfo />
-      <Styles.Room>
-        {seatRows.map((row) => (
-          <Styles.Row>
-            {row.map((seat) => (
-              <SeatItem key={seat.id} seatInfo={seat} clickHandler={clickHandler} />
-            ))}
-          </Styles.Row>
-        ))}
-      </Styles.Room>
+      <RoomInfo price={actualPrice} />
+      <Styles.RoomContainer>
+        <Styles.Room>
+          {seatRows.map((row) => (
+            <Styles.Row>
+              {row.map((seat) => (
+                <SeatItem key={seat.id} seatInfo={seat} clickHandler={clickHandler} />
+              ))}
+            </Styles.Row>
+          ))}
+        </Styles.Room>
+      </Styles.RoomContainer>
       <RoomActions confirmHandler={confirmHandler} cancelHandler={cancelHandler} />
     </Styles.Container>
   );

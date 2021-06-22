@@ -1,11 +1,14 @@
 import * as Types from "./RoomInfo.types";
 import * as Styles from "./RoomInfo.styles";
+import PriceInfo from "./../PriceInfo/PriceInfo";
 
-const RoomInfo = ({}: Types.Props) => {
+const RoomInfo = ({ price }: Types.Props) => {
   return (
-    <Styles.InfoContainer>
-      <h2>Cena: </h2>
-    </Styles.InfoContainer>
+    <Styles.InfosContainer>
+      <Styles.InfoContainer>
+        <PriceInfo price={price} />
+      </Styles.InfoContainer>
+    </Styles.InfosContainer>
   );
 };
 

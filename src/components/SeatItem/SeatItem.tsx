@@ -1,6 +1,7 @@
 import * as Types from "./SeatItem.types";
 import * as Styles from "./SeatItem.styles";
 import { BsFillPersonFill } from "react-icons/bs";
+import { useState } from "react";
 
 const SeatItem = ({ seatInfo, clickHandler }: Types.Props) => {
   return (

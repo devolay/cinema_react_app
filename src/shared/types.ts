@@ -3,6 +3,7 @@ export interface SeatInfo {
   column: number;
   row: number;
   userId?: string;
+  price: number;
 }
 
 export interface SeatInfoExtended {
@@ -11,4 +12,5 @@ export interface SeatInfoExtended {
   row: number;
   userId?: string;
   notConfirmed?: boolean;
+  price: number;
 }
