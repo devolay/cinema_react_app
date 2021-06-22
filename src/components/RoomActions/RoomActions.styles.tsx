@@ -12,8 +12,9 @@ export const Button = styled.button`
   width: 180px;
   height: 60px;
   border: none;
-  background-color: #314455;
-  color: #fff;
+  background-color: #97aabd;
+  color: #644e5b;
+  font-weight: bold;
   font-size: 18px;
   border-radius: 6px;
   outline: none;

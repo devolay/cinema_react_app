@@ -19,6 +19,7 @@ export const RoomContainer = styled.div`
   align-items: center;
   flex: 1;
   flex-direction: column;
+  margin-top: 40px;
 `;
 
 export const Room = styled.div`

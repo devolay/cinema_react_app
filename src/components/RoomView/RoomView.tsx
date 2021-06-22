@@ -4,8 +4,7 @@ import SeatItem from "components/SeatItem";
 import { splitEvery } from "ramda";
 import { SeatInfo, SeatInfoExtended } from "shared/types";
 import { useRef, useState } from "react";
-import RoomActions from "components/RoomActions";
-import RoomInfo from "components/RoomInfo/RoomInfo";
+import RoomBar from "components/RoomBar/RoomBar";
 
 const RoomView = ({ seatsData, setSeatsData }: Types.Props) => {
   const [selectedSeats, setSelectedSeats] =
@@ -64,7 +63,7 @@ const RoomView = ({ seatsData, setSeatsData }: Types.Props) => {
 
   return (
     <Styles.Container>
-      <RoomInfo price={actualPrice} />
+      <RoomBar price={actualPrice} confirmHandler={confirmHandler} cancelHandler={cancelHandler} />
       <Styles.RoomContainer>
         <Styles.Room>
           {seatRows.map((row) => (
@@ -76,7 +75,6 @@ const RoomView = ({ seatsData, setSeatsData }: Types.Props) => {
           ))}
         </Styles.Room>
       </Styles.RoomContainer>
-      <RoomActions confirmHandler={confirmHandler} cancelHandler={cancelHandler} />
     </Styles.Container>
   );
 };
