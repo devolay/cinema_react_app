@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
   flex: 1;
   background-color: white;
+  flex-direction: column;
 `;
 
 export const Row = styled.div`

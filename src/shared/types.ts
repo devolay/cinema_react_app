@@ -2,5 +2,13 @@ export interface SeatInfo {
   id: number;
   column: number;
   row: number;
-  isBusy: boolean;
+  userId?: string;
+}
+
+export interface SeatInfoExtended {
+  id: number;
+  column: number;
+  row: number;
+  userId?: string;
+  notConfirmed?: boolean;
 }

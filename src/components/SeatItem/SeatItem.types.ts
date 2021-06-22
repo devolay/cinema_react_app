@@ -1,6 +1,6 @@
-import { SeatInfo } from "shared/types";
+import { SeatInfo, SeatInfoExtended } from "shared/types";
 
 export interface Props {
-  seatInfo: SeatInfo;
-  clickHandler: () => void;
+  seatInfo: SeatInfoExtended;
+  clickHandler: (seat: SeatInfo) => void;
 }
