@@ -2,6 +2,8 @@ import RoomView from "components/RoomView";
 import { SeatInfo } from "shared/types";
 import * as SharedStyles from "shared/styles";
 import { useState } from "react";
+import Login from "components/Login";
+import { ChakraProvider } from "@chakra-ui/react";
 
 const STATIC_DATA: SeatInfo[] = [
   { id: 0, column: 1, row: 1, price: 14.99 },
@@ -33,12 +35,25 @@ const STATIC_DATA: SeatInfo[] = [
 
 function App() {
   const [seatsData, setSeatsData] = useState(STATIC_DATA);
+  const [pageStatus, setPageStatus] = useState("login");
 
-  return (
-    <SharedStyles.PageWraper>
-      <RoomView seatsData={seatsData} setSeatsData={setSeatsData} />
-    </SharedStyles.PageWraper>
-  );
+  if (pageStatus === "login") {
+    return (
+      <ChakraProvider>
+        <SharedStyles.PageWraper>
+          <Login onGuestClick={setPageStatus}></Login>
+        </SharedStyles.PageWraper>
+      </ChakraProvider>
+    );
+  } else {
+    return (
+      <ChakraProvider>
+        <SharedStyles.PageWraper>
+          <RoomView seatsData={seatsData} setSeatsData={setSeatsData} />
+        </SharedStyles.PageWraper>
+      </ChakraProvider>
+    );
+  }
 }
 
 export default App;

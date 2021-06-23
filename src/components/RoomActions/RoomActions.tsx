@@ -1,15 +1,16 @@
 import * as Types from "./RoomActions.types";
 import * as Styles from "./RoomActions.styles";
+import * as SharedStyles from "shared/styles";
 
 const RoomActions = ({ confirmHandler, cancelHandler }: Types.Props) => {
   return (
     <Styles.ButtonContainer>
-      <Styles.StyledButton color="inherit" onClick={confirmHandler}>
+      <SharedStyles.StyledButton color="inherit" onClick={confirmHandler}>
         Confirm reservation
-      </Styles.StyledButton>
-      <Styles.StyledButton color="inherit" onClick={cancelHandler}>
+      </SharedStyles.StyledButton>
+      <SharedStyles.StyledButton color="inherit" onClick={cancelHandler}>
         Cancel
-      </Styles.StyledButton>
+      </SharedStyles.StyledButton>
     </Styles.ButtonContainer>
   );
 };

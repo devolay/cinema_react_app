@@ -3,7 +3,7 @@ import * as Styles from "./RoomView.styles";
 import SeatItem from "components/SeatItem";
 import { splitEvery } from "ramda";
 import { SeatInfo, SeatInfoExtended } from "shared/types";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import RoomBar from "components/RoomBar/RoomBar";
 import ReservationForm from "components/ReservationForm";
 
@@ -11,43 +11,43 @@ const RoomView = ({ seatsData, setSeatsData }: Types.Props) => {
   const [selectedSeats, setSelectedSeats] = useState<SeatInfo[] & { notConfirmed?: boolean }>(
     seatsData
   );
-
   const [actualPrice, setActualPrice] = useState(0);
-
   const userId = useRef(3);
 
   const seatRows = splitEvery(6, selectedSeats);
 
+  useEffect(() => {
+    setActualPrice(() => calculatePrice(selectedSeats));
+  }, [selectedSeats]);
+
   const calculatePrice = (selectedSeats: SeatInfoExtended[]) => {
+    console.log(selectedSeats);
     const selected = selectedSeats.filter((seat) => seat.userId === userId.current.toString());
-    return selected.reduce((prev, cur) => {
-      return prev + cur.price;
-    }, 0);
+    console.log(selected);
+    return selected.reduce((prev, cur) => prev + cur.price, 0);
   };
 
-  const clickHandler = (seat: SeatInfo) => {
-    if (userId.current.toString() === seat.userId || !seat.userId) {
-      setSelectedSeats((prevState) =>
-        prevState.map((prevSeat) =>
-          prevSeat.id === seat.id
+  const clickHandler = (selectedSeat: SeatInfo) => {
+    if (userId.current.toString() === selectedSeat.userId || !selectedSeat.userId) {
+      setSelectedSeats(
+        selectedSeats.map((seat) =>
+          seat.id === selectedSeat.id
             ? {
-                ...seat,
-                notConfirmed: prevSeat.userId
-                  ? prevSeat.userId === userId.current.toString()
+                ...selectedSeat,
+                notConfirmed: seat.userId
+                  ? seat.userId === userId.current.toString()
                     ? false
                     : true
                   : true,
-                userId: prevSeat.userId
-                  ? prevSeat.userId === userId.current.toString()
+                userId: seat.userId
+                  ? seat.userId === userId.current.toString()
                     ? undefined
                     : userId.current.toString()
                   : userId.current.toString(),
               }
-            : prevSeat
+            : seat
         )
       );
-      setActualPrice(() => calculatePrice(selectedSeats));
-      console.log();
     }
   };
 
@@ -71,7 +71,7 @@ const RoomView = ({ seatsData, setSeatsData }: Types.Props) => {
         <ReservationForm></ReservationForm>
         <Styles.Room>
           {seatRows.map((row) => (
-            <Styles.Row>
+            <Styles.Row key={row[0].id}>
               {row.map((seat) => (
                 <SeatItem key={seat.id} seatInfo={seat} clickHandler={clickHandler} />
               ))}

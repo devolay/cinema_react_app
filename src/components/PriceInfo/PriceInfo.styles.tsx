@@ -10,7 +10,7 @@ export const Label = styled.label`
   font-family: "Montserrat", sans-serif;
 `;
 
-export const Price = styled.text`
+export const Price = styled.p`
   color: #97aabd;
   font-size: 1rem;
   padding: 10px;
