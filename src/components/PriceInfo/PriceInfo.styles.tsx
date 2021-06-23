@@ -1,30 +1,30 @@
 import styled from "styled-components";
 
-export const Card = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  margin: 30px;
-  width: 100px;
-  height: 60px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #97aabd;
-  //box-shadow: 5px 5px 30px 7px #644e5b;
-  transition: 0.4s;
-`;
+export const Cardx = styled.div``;
 
 export const Label = styled.label`
-  color: #644e5b;
-  font-size: 18px;
+  color: #97aabd;
+  font-size: 1rem;
   padding: 10px;
   font-weight: bold;
+  font-family: "Montserrat", sans-serif;
 `;
 
 export const Price = styled.text`
-  color: #644e5b;
-  font-size: 18px;
+  color: #97aabd;
+  font-size: 1rem;
   padding: 10px;
   font-weight: bold;
+  font-family: "Montserrat", sans-serif;
+`;
+
+export const PriceContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 10px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  transition: 0.4s;
 `;

@@ -15,10 +15,10 @@ export const Row = styled.div`
 
 export const RoomContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex: 1;
-  flex-direction: column;
+  flex-direction: row;
   margin-top: 40px;
 `;
 
@@ -29,4 +29,5 @@ export const Room = styled.div`
   padding: 40px;
   background-color: #644e5b;
   width: 500px;
+  height: 400px;
 `;

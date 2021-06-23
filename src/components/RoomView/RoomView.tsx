@@ -5,10 +5,12 @@ import { splitEvery } from "ramda";
 import { SeatInfo, SeatInfoExtended } from "shared/types";
 import { useRef, useState } from "react";
 import RoomBar from "components/RoomBar/RoomBar";
+import ReservationForm from "components/ReservationForm";
 
 const RoomView = ({ seatsData, setSeatsData }: Types.Props) => {
-  const [selectedSeats, setSelectedSeats] =
-    useState<SeatInfo[] & { notConfirmed?: boolean }>(seatsData);
+  const [selectedSeats, setSelectedSeats] = useState<SeatInfo[] & { notConfirmed?: boolean }>(
+    seatsData
+  );
 
   const [actualPrice, setActualPrice] = useState(0);
 
@@ -44,8 +46,9 @@ const RoomView = ({ seatsData, setSeatsData }: Types.Props) => {
             : prevSeat
         )
       );
+      setActualPrice(() => calculatePrice(selectedSeats));
+      console.log();
     }
-    setActualPrice(() => calculatePrice(selectedSeats));
   };
 
   const confirmHandler = () => {
@@ -65,6 +68,7 @@ const RoomView = ({ seatsData, setSeatsData }: Types.Props) => {
     <Styles.Container>
       <RoomBar price={actualPrice} confirmHandler={confirmHandler} cancelHandler={cancelHandler} />
       <Styles.RoomContainer>
+        <ReservationForm></ReservationForm>
         <Styles.Room>
           {seatRows.map((row) => (
             <Styles.Row>

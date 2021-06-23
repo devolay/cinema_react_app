@@ -3,10 +3,10 @@ import * as Styles from "./PriceInfo.styles";
 
 const PriceInfo = ({ price }: Types.Props) => {
   return (
-    <Styles.Card>
-      <Styles.Label>{price} $</Styles.Label>
-      <Styles.Price>PRICE</Styles.Price>
-    </Styles.Card>
+    <Styles.PriceContainer>
+      <Styles.Price>PRICE: </Styles.Price>
+      <Styles.Label>{price.toPrecision(4)} $</Styles.Label>
+    </Styles.PriceContainer>
   );
 };
 

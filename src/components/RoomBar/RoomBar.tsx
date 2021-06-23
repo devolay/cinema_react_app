@@ -6,9 +6,7 @@ import RoomActions from "components/RoomActions/RoomActions";
 const RoomBar = ({ price, confirmHandler, cancelHandler }: Types.Props) => {
   return (
     <Styles.InfosContainer>
-      <Styles.InfoContainer>
-        <PriceInfo price={price} />
-      </Styles.InfoContainer>
+      <PriceInfo price={price} />
       <RoomActions confirmHandler={confirmHandler} cancelHandler={cancelHandler} />
     </Styles.InfosContainer>
   );

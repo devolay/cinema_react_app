@@ -10,4 +10,8 @@ export const Container = styled.div<{ isBusy: boolean; notConfirmed?: boolean }>
   width: 50px;
   margin: 10px;
   border-radius: 10px;
+  transition: 200ms;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
