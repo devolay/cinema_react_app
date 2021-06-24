@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   flex: 1;
-  background-color: #9e5a63;
+  background-color: white;
   flex-direction: column;
 `;
 
@@ -27,7 +27,7 @@ export const Room = styled.div`
   flex-direction: column;
   border-radius: 10px;
   padding: 40px;
-  background-color: #644e5b;
+  background-color: #b6e6e5;
   width: 500px;
   height: 400px;
 `;

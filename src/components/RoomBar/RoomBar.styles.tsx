@@ -1,9 +1,21 @@
 import styled from "styled-components";
+import { AppBar, Button, Toolbar } from "@material-ui/core";
 
-export const InfosContainer = styled.div`
+export const StyledAppBar = styled(AppBar)`
   display: flex;
-  background-color: #314455;
-  align-items: center;
+  height: 60px;
+`;
+
+export const StyledToolbar = styled(Toolbar)`
+  display: flex;
+  height: 60px;
   justify-content: space-between;
-  height: 70px;
+`;
+
+export const BarButton = styled(Button)`
+  margin-left: 20px;
+`;
+
+export const LeftContainer = styled.div`
+  display: flex;
 `;

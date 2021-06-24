@@ -5,7 +5,7 @@ const PriceInfo = ({ price }: Types.Props) => {
   return (
     <Styles.PriceContainer>
       <Styles.Price>PRICE: </Styles.Price>
-      <Styles.Label>{price.toPrecision(4)} $</Styles.Label>
+      <Styles.Label>{price.toFixed(2)} $</Styles.Label>
     </Styles.PriceContainer>
   );
 };

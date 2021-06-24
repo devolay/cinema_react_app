@@ -14,3 +14,8 @@ export interface SeatInfoExtended {
   notConfirmed?: boolean;
   price: number;
 }
+
+export enum RoutesEnum {
+  RoomPage = "/",
+  ReservationFormPage = "/form",
+}

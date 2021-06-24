@@ -5,7 +5,7 @@ export const Container = styled.div<{ isBusy: boolean; notConfirmed?: boolean }>
   align-items: center;
   justify-content: center;
   background-color: ${({ isBusy, notConfirmed }) =>
-    notConfirmed ? "#40c4ff" : isBusy ? "#ff1744" : "#4caf50"};
+    notConfirmed ? "#40c4ff" : isBusy ? "#c5314f" : "#78e97b"};
   height: 50px;
   width: 50px;
   margin: 10px;
