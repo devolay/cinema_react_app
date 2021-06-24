@@ -1,15 +1,10 @@
 import * as Types from "./RoomBar.types";
-import { AppBar, Button, IconButton, Toolbar, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import * as Styles from "./RoomBar.styles";
 import { RiAccountCircleFill } from "react-icons/ri";
 
-const RoomBar = ({ price, confirmHandler, cancelHandler }: Types.Props) => {
+const RoomBar = ({ confirmHandler }: Types.Props) => {
   return (
-    // <Styles.InfosContainer>
-    //   <RoomActions confirmHandler={confirmHandler} cancelHandler={cancelHandler} />
-    // </Styles.InfosContainer>
-    // <PriceInfo price={price} />
-
     <Styles.StyledAppBar position="static">
       <Styles.StyledToolbar>
         <Styles.LeftContainer>
@@ -17,9 +12,6 @@ const RoomBar = ({ price, confirmHandler, cancelHandler }: Types.Props) => {
           <Styles.BarButton color="inherit">Films</Styles.BarButton>
           <Styles.BarButton color="inherit" onClick={() => confirmHandler()}>
             Buy Tickets
-          </Styles.BarButton>
-          <Styles.BarButton color="inherit" onClick={() => cancelHandler()}>
-            Cancel
           </Styles.BarButton>
         </Styles.LeftContainer>
         <Styles.BarButton color="inherit" startIcon={<RiAccountCircleFill />}>

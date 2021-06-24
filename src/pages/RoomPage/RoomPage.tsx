@@ -6,8 +6,9 @@ import { useRef, useState, useEffect } from "react";
 import RoomBar from "components/RoomBar/RoomBar";
 import useCinemaContext from "./../../hooks/useCinemaContext";
 import { useHistory } from "react-router-dom";
-import ReservationForm from "./../ReservationFormPage/ReservationFormPage";
 import toast, { Toaster } from "react-hot-toast";
+import { GiCancel } from "react-icons/gi";
+import PriceInfo from "components/PriceInfo";
 
 const RoomPage = () => {
   const history = useHistory();
@@ -77,17 +78,30 @@ const RoomPage = () => {
   return (
     <Styles.Container>
       <RoomBar price={actualPrice} confirmHandler={confirmHandler} cancelHandler={cancelHandler} />
-      <Styles.RoomContainer>
-        <Styles.Room>
-          {seatRows.map((row) => (
-            <Styles.Row key={row[0].id}>
-              {row.map((seat) => (
-                <SeatItem key={seat.id} seatInfo={seat} clickHandler={clickHandler} />
-              ))}
-            </Styles.Row>
-          ))}
-        </Styles.Room>
-      </Styles.RoomContainer>
+      <Styles.CenterContainer>
+        <Styles.RoomContainer>
+          <Styles.Room>
+            {seatRows.map((row) => (
+              <Styles.Row key={row[0].id}>
+                {row.map((seat) => (
+                  <SeatItem key={seat.id} seatInfo={seat} clickHandler={clickHandler} />
+                ))}
+              </Styles.Row>
+            ))}
+          </Styles.Room>
+        </Styles.RoomContainer>
+        <Styles.CenterBottomContainer>
+          <PriceInfo price={actualPrice} />
+          <Styles.StyledButton
+            variant="contained"
+            startIcon={<GiCancel />}
+            color="primary"
+            onClick={() => cancelHandler()}
+          >
+            Cancel
+          </Styles.StyledButton>
+        </Styles.CenterBottomContainer>
+      </Styles.CenterContainer>
       <Toaster />
     </Styles.Container>
   );
