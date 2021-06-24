@@ -12,67 +12,51 @@ import PriceInfo from "components/PriceInfo";
 
 const RoomPage = () => {
   const history = useHistory();
-  const { seatsData, setSeatsData } = useCinemaContext();
-  const [selectedSeats, setSelectedSeats] = useState<SeatInfo[] & { notConfirmed?: boolean }>(
-    seatsData
-  );
+  const { seatsData, userId, setUserSelectedSeats, userSelectedSeats } = useCinemaContext();
+  const [seatDataCopy, setSeatDataCopy] = useState<SeatInfo[]>(seatsData);
+  const [selectedSeats, setSelectedSeats] = useState<SeatInfo[]>(userSelectedSeats);
   const [actualPrice, setActualPrice] = useState(0);
-  const userId = useRef(3);
-  const seatRows = splitEvery(6, selectedSeats);
+  const seatRows = splitEvery(6, seatDataCopy);
 
   useEffect(() => {
     setActualPrice(() => calculatePrice(selectedSeats));
   }, [selectedSeats]);
 
   const calculatePrice = (selectedSeats: SeatInfoExtended[]) => {
-    console.log(selectedSeats);
     const selected = selectedSeats.filter((seat) => seat.userId === userId.current.toString());
-    console.log(selected);
     return selected.reduce((prev, cur) => prev + cur.price, 0);
   };
 
   const clickHandler = (selectedSeat: SeatInfo) => {
     if (userId.current.toString() === selectedSeat.userId || !selectedSeat.userId) {
-      setSelectedSeats(
-        selectedSeats.map((seat) =>
-          seat.id === selectedSeat.id
-            ? {
-                ...selectedSeat,
-                notConfirmed: seat.userId
-                  ? seat.userId === userId.current.toString()
-                    ? false
-                    : true
-                  : true,
-                userId: seat.userId
-                  ? seat.userId === userId.current.toString()
-                    ? undefined
-                    : userId.current.toString()
-                  : userId.current.toString(),
-              }
-            : seat
-        )
-      );
+      setSelectedSeats((prevState) => ({ ...prevState, selectedSeat }));
+      if (selectedSeats.includes(selectedSeat))
+        setSelectedSeats((prevState) => prevState.filter((seat) => seat !== selectedSeat));
+      else setSelectedSeats((prevState) => ({ ...prevState, selectedSeat }));
     }
   };
 
   const confirmHandler = () => {
     const selectedSeatsMap = selectedSeats.map((seat) => ({ ...seat, notConfirmed: undefined }));
-    setSeatsData(selectedSeatsMap);
+    setUserSelectedSeats(selectedSeatsMap);
     setSelectedSeats(selectedSeatsMap);
     setActualPrice(0);
     noSeatInfoHandler();
-    userId.current++;
   };
 
   const noSeatInfoHandler = () => {
-    selectedSeats.filter((seat) => seat.userId === userId.current.toString()).length > 0
-      ? history.push(RoutesEnum.ReservationFormPage)
-      : toast.error("Please select seats before reservation!", { position: "bottom-center" });
+    if (selectedSeats.filter((seat) => seat.userId === userId.current.toString()).length > 0) {
+      history.push(RoutesEnum.ReservationFormPage);
+      userId.current++;
+    } else {
+      toast.error("Please select seats before reservation!", { position: "bottom-center" });
+    }
   };
 
   const cancelHandler = () => {
     setSelectedSeats(seatsData);
     setActualPrice(0);
+    console.log(userId);
   };
 
   return (

@@ -6,15 +6,6 @@ export interface SeatInfo {
   price: number;
 }
 
-export interface SeatInfoExtended {
-  id: number;
-  column: number;
-  row: number;
-  userId?: string;
-  notConfirmed?: boolean;
-  price: number;
-}
-
 export enum RoutesEnum {
   RoomPage = "/",
   ReservationFormPage = "/form",

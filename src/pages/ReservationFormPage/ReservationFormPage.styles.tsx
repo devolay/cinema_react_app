@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Card from "@material-ui/core/Card";
-import { TextField, Typography } from "@material-ui/core";
+import { Button, TextField, Typography } from "@material-ui/core";
 
 export const FormContainer = styled(Card)`
   display: flex;
@@ -15,18 +15,12 @@ export const FormContainer = styled(Card)`
 `;
 
 export const FormRow = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-around;
-  flex-direction: row;
-  padding: 10px;
-`;
-
-export const InputContainer = styled.div`
-  justify-content: flex-start;
+  justify-content: space-between;
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 10px;
+  width: 220px;
 `;
 
 export const StyledTextField = styled(TextField)`
@@ -39,4 +33,15 @@ export const StyledTypgraphy = styled(Typography)`
   color: white;
   align-items: center;
   justify-content: center;
+`;
+
+export const StyledButton = styled(Button)`
+  color: white;
+  background-color: #90a4ae;
+`;
+
+export const Error = styled.p`
+  font-size: 14px;
+  margin: 4px 0 4px 0;
+  color: #f20f17;
 `;

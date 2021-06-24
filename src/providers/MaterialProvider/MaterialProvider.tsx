@@ -17,6 +17,18 @@ const theme = createMuiTheme({
     },
     background: { default: "#819ca9" },
   },
+  overrides: {
+    MuiInput: {
+      root: {
+        color: "white",
+      },
+    },
+    MuiFormLabel: {
+      root: {
+        color: "white",
+      },
+    },
+  },
 });
 
 const MaterialProvider = ({ children }: Types.Props) => {

@@ -8,4 +8,7 @@ export interface Props {
 export interface ICinemaContext {
   seatsData: SeatInfo[];
   setSeatsData: React.Dispatch<React.SetStateAction<SeatInfo[]>>;
+  userId: React.MutableRefObject<number>;
+  userSelectedSeats: SeatInfo[];
+  setUserSelectedSeats: React.Dispatch<React.SetStateAction<SeatInfo[]>>;
 }
