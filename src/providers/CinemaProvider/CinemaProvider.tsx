@@ -8,9 +8,7 @@ export const CinemaContext = createContext<Types.ICinemaContext | null>(null);
 
 const CinemaProvider = ({ children }: Types.Props) => {
   const [seatsData, setSeatsData] = useState<SeatInfo[]>(STATIC_DATA);
-
   const userId = useRef(3);
-
   const [userSelectedSeats, setUserSelectedSeats] = useState<SeatInfo[]>([]);
 
   return (

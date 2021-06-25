@@ -26,25 +26,14 @@ const RoomPage = () => {
 
   const clickHandler = (selectedSeat: SeatInfo) => {
     if (userId.current.toString() === selectedSeat.userId || !selectedSeat.userId) {
-      setUserSelectedSeats((prevState) => ({ ...prevState, selectedSeat }));
       if (userSelectedSeats.includes(selectedSeat))
-        setUserSelectedSeats((prevState) => prevState.filter((seat) => seat !== selectedSeat));
-      else setUserSelectedSeats((prevState) => ({ ...prevState, selectedSeat }));
+        setUserSelectedSeats(userSelectedSeats.filter((seat) => seat !== selectedSeat));
+      else setUserSelectedSeats([...userSelectedSeats, selectedSeat]);
     }
   };
 
   const confirmHandler = () => {
-    const selectedSeatsMap = userSelectedSeats.map((seat) => ({
-      ...seat,
-      notConfirmed: undefined,
-    }));
-    setUserSelectedSeats(selectedSeatsMap);
-    setActualPrice(0);
-    noSeatInfoHandler();
-  };
-
-  const noSeatInfoHandler = () => {
-    if (userSelectedSeats.filter((seat) => seat.userId === userId.current.toString()).length > 0) {
+    if (userSelectedSeats.length > 0) {
       history.push(RoutesEnum.ReservationFormPage);
       userId.current++;
     } else {
@@ -53,9 +42,7 @@ const RoomPage = () => {
   };
 
   const cancelHandler = () => {
-    setUserSelectedSeats(seatsData);
-    setActualPrice(0);
-    console.log(userId);
+    setUserSelectedSeats([]);
   };
 
   return (
