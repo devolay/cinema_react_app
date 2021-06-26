@@ -6,6 +6,12 @@ export const Center = styled.div`
   align-items: center;
 `;
 
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
 export const PageWraper = styled.div`
   min-height: 100vh;
   display: flex;

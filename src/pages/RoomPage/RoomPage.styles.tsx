@@ -1,12 +1,6 @@
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
 
-export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
-
 export const Row = styled.div`
   display: flex;
   justify-content: center;
@@ -46,6 +40,6 @@ export const CenterBottomContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  width: 300px;
+  justify-content: space-around;
+  width: 440px;
 `;

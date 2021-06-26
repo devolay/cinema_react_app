@@ -1,4 +1,5 @@
 import * as Styles from "./RoomPage.styles";
+import * as SharedStyles from "shared/styles";
 import SeatItem from "components/SeatItem";
 import { splitEvery } from "ramda";
 import { RoutesEnum, SeatInfo } from "shared/types";
@@ -7,7 +8,7 @@ import RoomBar from "components/RoomBar/RoomBar";
 import useCinemaContext from "./../../hooks/useCinemaContext";
 import { useHistory } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import { GiCancel } from "react-icons/gi";
+import { GiCancel, GiConfirmed } from "react-icons/gi";
 import PriceInfo from "components/PriceInfo";
 
 const RoomPage = () => {
@@ -46,8 +47,8 @@ const RoomPage = () => {
   };
 
   return (
-    <Styles.Container>
-      <RoomBar price={actualPrice} confirmHandler={confirmHandler} />
+    <SharedStyles.Container>
+      <RoomBar />
       <Styles.CenterContainer>
         <Styles.RoomContainer>
           <Styles.Room>
@@ -69,6 +70,14 @@ const RoomPage = () => {
           <PriceInfo price={actualPrice} />
           <Styles.StyledButton
             variant="contained"
+            startIcon={<GiConfirmed />}
+            color="primary"
+            onClick={() => confirmHandler()}
+          >
+            Confirm
+          </Styles.StyledButton>
+          <Styles.StyledButton
+            variant="contained"
             startIcon={<GiCancel />}
             color="primary"
             onClick={() => cancelHandler()}
@@ -78,7 +87,7 @@ const RoomPage = () => {
         </Styles.CenterBottomContainer>
       </Styles.CenterContainer>
       <Toaster />
-    </Styles.Container>
+    </SharedStyles.Container>
   );
 };
 

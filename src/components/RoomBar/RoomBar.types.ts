@@ -1,4 +1,1 @@
-export interface Props {
-  price: number;
-  confirmHandler: () => void;
-}
+export interface Props {}
