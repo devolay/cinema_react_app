@@ -2,7 +2,7 @@ import * as Styles from "./MoviesPage.styles";
 import * as SharedStyles from "shared/styles";
 import RoomBar from "components/RoomBar";
 import MovieCard from "components/MovieCard";
-import services from "./../../store/services";
+import services from "store/services";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "store";
 import { useEffect } from "react";
