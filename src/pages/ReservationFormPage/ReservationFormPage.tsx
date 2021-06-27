@@ -1,5 +1,5 @@
-import * as Types from "./ReservationFormPage.types";
 import * as Styles from "./ReservationFormPage.styles";
+import * as Types from "./ReservationFormPage.types";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import * as SharedStyles from "shared/styles";
@@ -9,8 +9,8 @@ import { AiFillPhone } from "react-icons/ai";
 import { InputAdornment } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { RoutesEnum } from "shared/types";
-import { GiDivingDagger } from "react-icons/gi";
 import useCinemaContext from "hooks/useCinemaContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -24,8 +24,10 @@ const validationSchema = Yup.object().shape({
     .notRequired(),
 });
 
-const ReservationForm = (): React.ReactElement => {
-  const { seatsData } = useCinemaContext();
+const ReservationForm = ({}: Types.Props): React.ReactElement => {
+  const history = useHistory();
+  const { seatsData, setSeatsData, userId, userSelectedSeats, setUserSelectedSeats } =
+    useCinemaContext();
   const { values, setFieldValue, errors, validateField, validateForm, isValid, submitForm } =
     useFormik<{
       email: string;
@@ -35,12 +37,23 @@ const ReservationForm = (): React.ReactElement => {
       initialValues: { email: "", phoneNumber: "", fullname: "" },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
-        //do something
-        validateForm();
+        validateForm()
+          .then(() =>
+            setSeatsData(
+              seatsData.map((seat) =>
+                userSelectedSeats.includes(seat) ? { ...seat, userId: userId.toString() } : seat
+              )
+            )
+          )
+          .then(() => {
+            setUserSelectedSeats([]);
+            history.push(RoutesEnum.RoomPage);
+          })
+          .catch(() =>
+            toast.error("Please enter correct personal information!", { position: "bottom-center" })
+          );
       },
     });
-
-  const history = useHistory();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFieldValue(e.target.id, e.target.value, false).then(() => {
@@ -112,6 +125,7 @@ const ReservationForm = (): React.ReactElement => {
           <Styles.StyledButton onClick={() => cancelHandler()}>Cancel</Styles.StyledButton>
         </Styles.FormRow>
       </Styles.FormContainer>
+      <Toaster />
     </SharedStyles.Center>
   );
 };

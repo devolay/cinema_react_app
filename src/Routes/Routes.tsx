@@ -7,15 +7,17 @@ import { RoutesEnum } from "shared/types";
 const NotFound = () => <Typography align="center">404 Not Found</Typography>;
 
 const Routes = () => {
-  const RoomPage = lazy(() => import("pages/FilmsPage"));
+  const RoomPage = lazy(() => import("pages/RoomPage"));
   const ReservationFormPage = lazy(() => import("pages/ReservationFormPage"));
-  const FilmsPage = lazy(() => import("pages/RoomPage"));
+  const FilmsPage = lazy(() => import("pages/MoviesPage"));
+  const DetailsPage = lazy(() => import("pages/DetailsPage"));
 
   return (
     <Suspense fallback={<LoadingScreen />}>
       <Switch>
         <Route path={RoutesEnum.FilmsPage} exact component={FilmsPage} />
         <Route exact path={RoutesEnum.RoomPage} component={RoomPage} />
+        <Route exact path={RoutesEnum.DetailsPage} component={DetailsPage} />
         <Route exact path={RoutesEnum.ReservationFormPage} component={ReservationFormPage} />
         <Route component={NotFound} />
       </Switch>

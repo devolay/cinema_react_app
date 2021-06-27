@@ -1,3 +1,5 @@
-export const FILM_API_URL = "https://imdb8.p.rapidapi.com/auto-complete";
-export const FILM_API_KEY = "3a1dc042b4msh0754cc039478a88p12f489jsn9e604288ca35";
-export const FILM_API_HOST = "imdb8.p.rapidapi.com";
+const actualDateTime = Date.now();
+
+export const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=250d122354ea771c8241d2810c5be94d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&release_date.lte=${actualDateTime}&page=`;
+
+export const BASE_IMG_URL = "http://image.tmdb.org/t/p/w185/";
