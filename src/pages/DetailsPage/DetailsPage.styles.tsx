@@ -19,3 +19,9 @@ export const Cover = styled.img`
   height: 320px;
   margin: 5px;
 `;
+
+export const CarouselContainer = styled.div`
+  display: flex;
+  width: 900px;
+  height: 220px;
+`;

@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import { Dispatch } from "store";
 import { Grow } from "@material-ui/core";
 import { BASE_IMG_URL } from "shared/constants";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
+import YouTube, { Options } from "react-youtube";
 
 const DetailsPage = ({}: Types.Props) => {
   const { id } = useParams<Types.DetailsParams>();
@@ -33,12 +36,35 @@ const DetailsPage = ({}: Types.Props) => {
     console.log(movieDetails);
   }, [movieDetails]);
 
+  const opts: Options = {
+    height: "190",
+    width: "300",
+    playerVars: {
+      autoplay: 1,
+    },
+  };
+
   return (
     <SharedStyles.Container>
       <RoomBar></RoomBar>
       <Grow timeout={300} in={true} disableStrictModeCompat>
         <Styles.Card>
           <Styles.Cover src={BASE_IMG_URL + movieDetails?.poster_path}></Styles.Cover>
+          {/* <Styles.CarouselContainer> */}
+          <AliceCarousel
+            paddingLeft={25}
+            controlsStrategy="alternate"
+            responsive={{ 0: { items: 3 } }}
+            items={ytVideos.map((video) => (
+              <YouTube
+                key={video.key}
+                videoId={video.key}
+                opts={opts}
+                onReady={(event) => event.target.pauseVideo()}
+              />
+            ))}
+          ></AliceCarousel>
+          {/* </Styles.CarouselContainer> */}
         </Styles.Card>
       </Grow>
     </SharedStyles.Container>
