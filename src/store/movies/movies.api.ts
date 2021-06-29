@@ -7,6 +7,7 @@ import {
   API_URL_SIMILAR,
   API_URL_DETAILS,
   API_URL_VIDEOS,
+  API_URL_IMAGES,
 } from "shared/constants";
 
 export const getMovies = (page: number) =>
@@ -23,3 +24,6 @@ export const getSimilarDetails = (id: string) =>
 
 export const getYtVideos = (id: string) =>
   axios.get<Types.YtResult>(API_URL_VIDEOS(id)).then((x) => x.data);
+
+export const getMovieImages = (id: string) =>
+  axios.get<Types.ImageResult>(API_URL_IMAGES(id)).then((x) => x.data);

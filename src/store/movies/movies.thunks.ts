@@ -26,3 +26,8 @@ export const getYtVideos = createAsyncThunk(
   `movies/getYtVideos`,
   async ({ id }: Types.GetMovieDetailsRequest) => API.getYtVideos(id)
 );
+
+export const getMovieImages = createAsyncThunk(
+  `movies/getMovieImages`,
+  async ({ id }: Types.GetMovieDetailsRequest) => API.getMovieImages(id)
+);

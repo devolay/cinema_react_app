@@ -16,4 +16,9 @@ export const API_URL_SIMILAR = (movie_id: string) =>
 export const API_URL_VIDEOS = (movie_id: string) =>
   `https://api.themoviedb.org/3/movie/${movie_id}/videos?api_key=250d122354ea771c8241d2810c5be94d&language=en-US`;
 
+export const API_URL_IMAGES = (movie_id: string) =>
+  `https://api.themoviedb.org/3/movie/${movie_id}/images?api_key=250d122354ea771c8241d2810c5be94d`;
+
 export const YOUTUBE_URL = "https://www.youtube.com/watch?v=";
+
+export const BASE_POSTER_URL = "https://image.tmdb.org/t/p/original/";

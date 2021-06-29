@@ -8,6 +8,32 @@ export interface MoviesResult {
   total_results: number;
 }
 
+export interface Backdrop {
+  aspect_ratio: number;
+  file_path: string;
+  height: number;
+  iso_639_1: null | string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+}
+
+export interface Poster {
+  aspect_ratio: number;
+  file_path: string;
+  height: number;
+  iso_639_1: null | string;
+  vote_average: number;
+  vote_count: number;
+  width: number;
+}
+
+export interface ImageResult {
+  id: number;
+  backdrops: Backdrop[];
+  posters: Poster[];
+}
+
 export interface YtResult {
   id: number;
   results: YtVideo[];
@@ -21,6 +47,7 @@ export interface InitialState {
   movieCredits: Credits | null;
   ytvideos: YtVideo[];
   similarMovies: Movie[];
+  backdrops: Backdrop[];
 }
 
 export interface GetMoviesRequest {

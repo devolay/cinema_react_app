@@ -8,7 +8,7 @@ import services from "store/services";
 import { useEffect, useState } from "react";
 import { Dispatch } from "store";
 import { Grow } from "@material-ui/core";
-import { BASE_IMG_URL } from "shared/constants";
+import { BASE_POSTER_URL } from "shared/constants";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import YouTube, { Options } from "react-youtube";
@@ -18,6 +18,7 @@ const DetailsPage = ({}: Types.Props) => {
   const movieDetails = useSelector(services.selectors.movies.selectMovieDetails);
   const movieCredits = useSelector(services.selectors.movies.selectCreditsDetails);
   const similarMovies = useSelector(services.selectors.movies.selectSimilarMovies);
+  const movieImages = useSelector(services.selectors.movies.selectMovieImages);
   const ytVideos = useSelector(services.selectors.movies.selectYtVideos);
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch<Dispatch>();
@@ -27,6 +28,7 @@ const DetailsPage = ({}: Types.Props) => {
     dispatch(services.actions.movies.getCreditsDetails({ id: id }));
     dispatch(services.actions.movies.getSimilarDetails({ id: id }));
     dispatch(services.actions.movies.getYtVideos({ id: id }));
+    dispatch(services.actions.movies.getMovieImages({ id: id }));
   }, []);
 
   useEffect(() => {
@@ -40,16 +42,40 @@ const DetailsPage = ({}: Types.Props) => {
     height: "190",
     width: "300",
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
     },
   };
+
+  const losuj = (lenght: number) => Math.floor(Math.random() * lenght + 1);
 
   return (
     <SharedStyles.Container>
       <RoomBar></RoomBar>
       <Grow timeout={300} in={true} disableStrictModeCompat>
         <Styles.Card>
-          <Styles.Cover src={BASE_IMG_URL + movieDetails?.poster_path}></Styles.Cover>
+          <Styles.UpperContainer
+            img_src={movieImages.length > 0 ? BASE_POSTER_URL + movieImages[0].file_path : ""}
+          >
+            <Styles.LeftContainer>
+              <Styles.Info>
+                <Styles.TitleHeader>{movieDetails?.title}</Styles.TitleHeader>
+                <Styles.Stars
+                  name={"rating" + movieDetails?.id}
+                  value={movieDetails ? movieDetails.vote_average / 2 : 0}
+                  precision={0.5}
+                  readOnly
+                ></Styles.Stars>
+              </Styles.Info>
+              <Styles.Info>
+                <Styles.StyledText gutterBottom>{movieDetails?.overview}</Styles.StyledText>
+              </Styles.Info>
+              <Styles.Info>
+                <Styles.StyledText>Release date</Styles.StyledText>
+                <Styles.Bold>{movieDetails?.release_date}</Styles.Bold>
+              </Styles.Info>
+              <Styles.Info></Styles.Info>
+            </Styles.LeftContainer>
+          </Styles.UpperContainer>
           {/* <Styles.CarouselContainer> */}
           <AliceCarousel
             paddingLeft={25}

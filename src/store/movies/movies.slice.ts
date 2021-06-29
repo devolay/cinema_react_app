@@ -7,6 +7,7 @@ import {
   getCreditsDetails,
   getSimilarDetails,
   getYtVideos,
+  getMovieImages,
 } from "./movies.thunks";
 
 const initialState: Types.InitialState = {
@@ -17,6 +18,7 @@ const initialState: Types.InitialState = {
   movieCredits: null,
   ytvideos: [],
   similarMovies: [],
+  backdrops: [],
 };
 
 export const moviesSlice = createSlice({
@@ -62,6 +64,12 @@ export const moviesSlice = createSlice({
     },
     [getYtVideos.rejected.type]: (state) => {
       state.ytvideos = [];
+    },
+    [getMovieImages.fulfilled.type]: (state, action: PayloadAction<Types.ImageResult>) => {
+      state.backdrops = action.payload.backdrops;
+    },
+    [getMovieImages.rejected.type]: (state) => {
+      state.backdrops = [];
     },
   },
 });

@@ -27,3 +27,7 @@ export const selectSimilarMovies = (store: RootState) => {
 export const selectYtVideos = (store: RootState) => {
   return store.movies.ytvideos;
 };
+
+export const selectMovieImages = (store: RootState) => {
+  return store.movies.backdrops;
+};
