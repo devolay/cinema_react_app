@@ -12,6 +12,8 @@ import { BASE_POSTER_URL } from "shared/constants";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import YouTube, { Options } from "react-youtube";
+import { MovieDetails } from "shared/types";
+import ActorCard from "components/ActorCard";
 
 const DetailsPage = ({}: Types.Props) => {
   const { id } = useParams<Types.DetailsParams>();
@@ -52,7 +54,7 @@ const DetailsPage = ({}: Types.Props) => {
     <SharedStyles.Container>
       <RoomBar></RoomBar>
       <Grow timeout={300} in={true} disableStrictModeCompat>
-        <Styles.Card>
+        <Styles.Card elevation={10}>
           <Styles.UpperContainer
             img_src={movieImages.length > 0 ? BASE_POSTER_URL + movieImages[0].file_path : ""}
           >
@@ -73,10 +75,25 @@ const DetailsPage = ({}: Types.Props) => {
                 <Styles.StyledText>Release date</Styles.StyledText>
                 <Styles.Bold>{movieDetails?.release_date}</Styles.Bold>
               </Styles.Info>
-              <Styles.Info></Styles.Info>
+              <Styles.Info>
+                <Styles.Bold>{movieDetails ? movieDetails?.runtime + " min" : ""}</Styles.Bold>
+              </Styles.Info>
             </Styles.LeftContainer>
           </Styles.UpperContainer>
-          {/* <Styles.CarouselContainer> */}
+          <Styles.LowerContainer>
+            <Styles.CrouselHeader>Top billed cast</Styles.CrouselHeader>
+            <AliceCarousel
+              items={movieCredits?.cast.map((actor) => (
+                <ActorCard key={actor.id} actor={actor}></ActorCard>
+              ))}
+              responsive={{ 0: { items: 7 } }}
+              paddingLeft={10}
+              controlsStrategy="responsive"
+              disableDotsControls={true}
+              disableButtonsControls={true}
+              mouseTracking={true}
+            ></AliceCarousel>
+          </Styles.LowerContainer>
           <AliceCarousel
             paddingLeft={25}
             controlsStrategy="alternate"

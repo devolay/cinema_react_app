@@ -15,6 +15,8 @@ export const Card = styled(Paper)`
   align-items: flex-start;
   flex-direction: column;
   margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 20px;
   width: 80%;
 `;
 
@@ -37,7 +39,8 @@ export const UpperContainer = styled.div<{ img_src: string }>`
   position: relative;
   flex-direction: row;
   height: 460px;
-  border-radius: 5px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
   width: 100%;
   background-image: ${({ img_src }) =>
     `linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(129,156,169,0.2) 74%,
@@ -53,6 +56,15 @@ export const UpperContainer = styled.div<{ img_src: string }>`
     bottom: 0px;
     left: 0px;
   }
+`;
+
+export const LowerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 25px;
 `;
 
 export const LeftContainer = styled.div`
@@ -96,6 +108,19 @@ export const TitleHeader = styled(Bold)`
   font-size: 22px;
   color: white;
   margin-right: 40px;
+`;
+
+export const CrouselHeader = styled(Bold)`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  font-size: 22px;
+  color: white;
+  margin-right: 40px;
+  margin-bottom: 20px;
+  margin-left: 45px;
 `;
 
 export const Stars = styled(Rating)`

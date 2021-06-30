@@ -22,3 +22,5 @@ export const API_URL_IMAGES = (movie_id: string) =>
 export const YOUTUBE_URL = "https://www.youtube.com/watch?v=";
 
 export const BASE_POSTER_URL = "https://image.tmdb.org/t/p/original/";
+
+export const BASE_PROFILE_URL = "https://image.tmdb.org/t/p/original/";
