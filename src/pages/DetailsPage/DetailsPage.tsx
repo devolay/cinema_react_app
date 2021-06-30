@@ -9,11 +9,12 @@ import { useEffect, useState } from "react";
 import { Dispatch } from "store";
 import { Grow } from "@material-ui/core";
 import { BASE_POSTER_URL } from "shared/constants";
-import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import YouTube, { Options } from "react-youtube";
-import { MovieDetails } from "shared/types";
 import ActorCard from "components/ActorCard";
+import ReactPlayer from "react-player/youtube";
+import MovieCard from "components/MovieCard";
+import { RoutesEnum } from "shared/types";
+import { useHistory } from "react-router-dom";
 
 const DetailsPage = ({}: Types.Props) => {
   const { id } = useParams<Types.DetailsParams>();
@@ -24,6 +25,7 @@ const DetailsPage = ({}: Types.Props) => {
   const ytVideos = useSelector(services.selectors.movies.selectYtVideos);
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch<Dispatch>();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(services.actions.movies.getMovieDetails({ id: id }));
@@ -31,29 +33,26 @@ const DetailsPage = ({}: Types.Props) => {
     dispatch(services.actions.movies.getSimilarDetails({ id: id }));
     dispatch(services.actions.movies.getYtVideos({ id: id }));
     dispatch(services.actions.movies.getMovieImages({ id: id }));
-  }, []);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [id]);
 
   useEffect(() => {
     if (movieDetails !== null) {
       setIsLoaded(true);
     }
-    console.log(movieDetails);
   }, [movieDetails]);
 
-  const opts: Options = {
-    height: "190",
-    width: "300",
-    playerVars: {
-      autoplay: 0,
-    },
+  const reserveTickets = () => {
+    history.push(RoutesEnum.RoomPage);
   };
-
-  const losuj = (lenght: number) => Math.floor(Math.random() * lenght + 1);
 
   return (
     <SharedStyles.Container>
       <RoomBar></RoomBar>
-      <Grow timeout={300} in={true} disableStrictModeCompat>
+      <Grow timeout={300} in={isLoaded} disableStrictModeCompat>
         <Styles.Card elevation={10}>
           <Styles.UpperContainer
             img_src={movieImages.length > 0 ? BASE_POSTER_URL + movieImages[0].file_path : ""}
@@ -79,35 +78,63 @@ const DetailsPage = ({}: Types.Props) => {
                 <Styles.Bold>{movieDetails ? movieDetails?.runtime + " min" : ""}</Styles.Bold>
               </Styles.Info>
             </Styles.LeftContainer>
+            <Styles.RightContainer>
+              <Styles.ReservationButton variant="outlined" onClick={reserveTickets}>
+                Buy Tickets
+              </Styles.ReservationButton>
+            </Styles.RightContainer>
           </Styles.UpperContainer>
           <Styles.LowerContainer>
             <Styles.CrouselHeader>Top billed cast</Styles.CrouselHeader>
-            <AliceCarousel
+            <Styles.StyledCarousel
+              key={"actorsCarousel"}
               items={movieCredits?.cast.map((actor) => (
                 <ActorCard key={actor.id} actor={actor}></ActorCard>
               ))}
-              responsive={{ 0: { items: 7 } }}
+              responsive={{ 0: { items: 8 } }}
+              innerWidth={20}
               paddingLeft={10}
               controlsStrategy="responsive"
               disableDotsControls={true}
               disableButtonsControls={true}
               mouseTracking={true}
-            ></AliceCarousel>
+            ></Styles.StyledCarousel>
+            <Styles.CrouselHeader>Videos</Styles.CrouselHeader>
+            <Styles.StyledCarousel
+              key={"videosCarousel"}
+              controlsStrategy="responsive"
+              responsive={{ 0: { items: 3 } }}
+              disableDotsControls={true}
+              paddingLeft={ytVideos?.length >= 3 ? 10 : ytVideos?.length === 2 ? 140 : 330}
+              items={ytVideos.map((video) => (
+                <ReactPlayer
+                  key={video.id}
+                  url={"https://www.youtube.com/watch?v=" + video.key}
+                  controls={false}
+                  light={true}
+                  height={170}
+                  width={303}
+                ></ReactPlayer>
+              ))}
+            ></Styles.StyledCarousel>
+            {similarMovies.length ? (
+              <>
+                <Styles.CrouselHeader>Similar movies</Styles.CrouselHeader>
+                <Styles.StyledCarousel
+                  key={"similarMoviesCarousel"}
+                  items={similarMovies.map((movie) => (
+                    <MovieCard key={movie.id} movie={movie}></MovieCard>
+                  ))}
+                  responsive={{ 0: { items: 4 } }}
+                  controlsStrategy="responsive"
+                  disableDotsControls={true}
+                  mouseTracking={true}
+                ></Styles.StyledCarousel>
+              </>
+            ) : (
+              <></>
+            )}
           </Styles.LowerContainer>
-          <AliceCarousel
-            paddingLeft={25}
-            controlsStrategy="alternate"
-            responsive={{ 0: { items: 3 } }}
-            items={ytVideos.map((video) => (
-              <YouTube
-                key={video.key}
-                videoId={video.key}
-                opts={opts}
-                onReady={(event) => event.target.pauseVideo()}
-              />
-            ))}
-          ></AliceCarousel>
-          {/* </Styles.CarouselContainer> */}
         </Styles.Card>
       </Grow>
     </SharedStyles.Container>

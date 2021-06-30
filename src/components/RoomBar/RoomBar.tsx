@@ -2,14 +2,20 @@ import * as Types from "./RoomBar.types";
 import { Typography } from "@material-ui/core";
 import * as Styles from "./RoomBar.styles";
 import { RiAccountCircleFill } from "react-icons/ri";
+import { useHistory } from "react-router-dom";
+import { RoutesEnum } from "shared/types";
 
 const RoomBar = ({}: Types.Props) => {
+  const history = useHistory();
+
   return (
     <Styles.StyledAppBar position="static">
       <Styles.StyledToolbar>
         <Styles.LeftContainer>
           <Typography variant="h6">Cinema App</Typography>
-          <Styles.BarButton color="inherit">Films</Styles.BarButton>
+          <Styles.BarButton color="inherit" onClick={() => history.push(RoutesEnum.FilmsPage)}>
+            Films
+          </Styles.BarButton>
         </Styles.LeftContainer>
         <Styles.BarButton color="inherit" startIcon={<RiAccountCircleFill />}>
           Login

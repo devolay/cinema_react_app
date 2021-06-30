@@ -41,11 +41,9 @@ export const moviesSlice = createSlice({
     },
     [getMovieDetails.fulfilled.type]: (state, action: PayloadAction<SharedTypes.MovieDetails>) => {
       state.movieDetails = action.payload;
-      console.log(action.payload);
     },
     [getMovieDetails.rejected.type]: (state) => {
       state.movieDetails = null;
-      console.log(state);
     },
     [getCreditsDetails.fulfilled.type]: (state, action: PayloadAction<SharedTypes.Credits>) => {
       state.movieCredits = action.payload;

@@ -5,7 +5,7 @@ import Rating from "@material-ui/lab/Rating";
 export const Container = styled.div`
   transition: transform 0.2s;
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 `;
 

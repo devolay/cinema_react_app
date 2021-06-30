@@ -1,5 +1,6 @@
-import { Paper, Typography } from "@material-ui/core";
+import { Button, Paper, Typography } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
+import AliceCarousel from "react-alice-carousel";
 import styled from "styled-components";
 
 export const Container = styled.div`
@@ -12,7 +13,7 @@ export const Card = styled(Paper)`
   background-color: #29434e;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
   margin-top: 40px;
   margin-bottom: 40px;
@@ -43,8 +44,7 @@ export const UpperContainer = styled.div<{ img_src: string }>`
   border-top-right-radius: 20px;
   width: 100%;
   background-image: ${({ img_src }) =>
-    `linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(129,156,169,0.2) 74%,
-    rgba(255,255,255,0.1) 100%), url(${img_src})`};
+    `radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,1) 100%), url(${img_src})`};
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -63,8 +63,7 @@ export const LowerContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  padding: 25px;
+  width: 90%;
 `;
 
 export const LeftContainer = styled.div`
@@ -121,10 +120,40 @@ export const CrouselHeader = styled(Bold)`
   margin-right: 40px;
   margin-bottom: 20px;
   margin-left: 45px;
+  margin-top: 20px;
 `;
 
 export const Stars = styled(Rating)`
   .MuiRating-iconEmpty {
     color: rgba(255, 255, 255, 0.4);
+  }
+`;
+
+export const StyledCarousel = styled(AliceCarousel)`
+  .alice-carousel__prev-btn-item,
+  .alice-carousel__next-btn-item {
+    color: white;
+  }
+`;
+
+export const RightContainer = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 100%;
+  width: 60%;
+`;
+
+export const ReservationButton = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 60px;
+  border: 0px;
+  color: white;
+  border-radius: 0px;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
   }
 `;
