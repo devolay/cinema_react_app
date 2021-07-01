@@ -27,8 +27,8 @@ export const loginWithEmail = async (email: string, password: string) => {
   await getFirebase().login({ email, password });
 };
 
-export const loginWithGithub = async () => {
-  await getFirebase().login({ provider: "github", type: "popup" });
+export const loginWithFacebook = async () => {
+  await getFirebase().login({ provider: "facebook", type: "popup" });
 };
 
 export const loginWithGoogle = async () => {

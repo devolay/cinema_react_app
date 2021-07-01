@@ -10,10 +10,12 @@ import { PASS_REGEX } from "shared/constants";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { MdArrowBack } from "react-icons/md";
-import { loginWithEmail } from "store/profiles";
+import { loginWithEmail, loginWithGoogle } from "store/profiles";
+import { loginWithFacebook } from "./../../store/profiles/index";
+import toast, { Toaster } from "react-hot-toast";
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().min(3, "Too short name").required("Please enter your username"),
+  email: Yup.string().email("This email is incorrect!").required("Please enter your full email"),
   password: Yup.string()
     .required("No password provided")
     .min(8, "Password is too short - should be 8 chars minimum")
@@ -32,16 +34,22 @@ const LoginPage = ({}: Types.Props) => {
     history.push(RoutesEnum.RegisterPage);
   };
 
+  const goToMoviesPage = () => {
+    history.push(RoutesEnum.MoviesPage);
+  };
+
   const { values, setFieldValue, errors, validateField, validateForm, isValid, submitForm } =
     useFormik<{
-      username: string;
+      email: string;
       password: string;
     }>({
-      initialValues: { password: "", username: "" },
+      initialValues: { password: "", email: "" },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
         validateForm();
-        //do smth after validation
+        if (isValid) {
+          loginWithEmail(values.email, values.password).then(goToMoviesPage);
+        }
       },
     });
 
@@ -59,13 +67,13 @@ const LoginPage = ({}: Types.Props) => {
           <Styles.TitleHeader>Login</Styles.TitleHeader>
           <Styles.LoginContainer>
             <Styles.StyledTextField
-              id="username"
+              id="email"
               size="small"
-              label="username"
-              value={values.username}
+              label="email"
+              value={values.email}
               onChange={onChange}
-              helperText={errors.username ? errors.username : " "}
-              type="inpuy"
+              helperText={errors.email ? errors.email : " "}
+              type="input"
               variant="outlined"
               fullWidth
             />
@@ -90,11 +98,31 @@ const LoginPage = ({}: Types.Props) => {
           </Styles.LoginContainer>
           <DividerWithText>OR</DividerWithText>
           <Styles.OutsideLoginContainer>
-            <Styles.GoogleButton fullWidth>LOGIN WITH GOOGLE</Styles.GoogleButton>
-            <Styles.FacebookButton fullWidth>LOGIN WITH FACEBOOK</Styles.FacebookButton>
+            <Styles.GoogleButton
+              fullWidth
+              onClick={() =>
+                toast.promise(loginWithGoogle(), {
+                  loading: "loading...",
+                  success: () => {
+                    goToMoviesPage();
+                    return "loged in succesfully!";
+                  },
+                  error: (error) => `${error}`,
+                })
+              }
+            >
+              LOGIN WITH GOOGLE
+            </Styles.GoogleButton>
+            <Styles.FacebookButton
+              fullWidth
+              onClick={() => loginWithFacebook().then(() => goToMoviesPage())}
+            >
+              LOGIN WITH FACEBOOK
+            </Styles.FacebookButton>
           </Styles.OutsideLoginContainer>
         </Styles.LoginFormContainer>
       </Styles.RightContainer>
+      <Toaster />
     </Styles.PageContainer>
   );
 };

@@ -4,6 +4,7 @@ import LoadingScreen from "components/LoadingScreen/LoadingScreen";
 import { Typography } from "@material-ui/core";
 import { RoutesEnum } from "shared/types";
 import LoginPage from "pages/LoginPage";
+import PrivateRoute from "./PrivateRoute";
 
 const NotFound = () => <Typography align="center">404 Not Found</Typography>;
 
@@ -18,12 +19,12 @@ const Routes = () => {
   return (
     <Suspense fallback={<LoadingScreen />}>
       <Switch>
-        <Route path={RoutesEnum.FilmsPage} exact component={FilmsPage} />
-        <Route exact path={RoutesEnum.RoomPage} component={RoomPage} />
+        <Route path={RoutesEnum.MoviesPage} exact component={FilmsPage} />
         <Route exact path={RoutesEnum.DetailsPage} component={DetailsPage} />
-        <Route exact path={RoutesEnum.ReservationFormPage} component={ReservationFormPage} />
         <Route path={RoutesEnum.LoginPage} exact component={LoginPage} />
         <Route path={RoutesEnum.RegisterPage} exact component={RegisterPage} />
+        <PrivateRoute exact path={RoutesEnum.ReservationFormPage} component={ReservationFormPage} />
+        <PrivateRoute exact path={RoutesEnum.RoomPage} component={RoomPage} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>

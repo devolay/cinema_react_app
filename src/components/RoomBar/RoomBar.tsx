@@ -13,7 +13,7 @@ const RoomBar = ({}: Types.Props) => {
       <Styles.StyledToolbar>
         <Styles.LeftContainer>
           <Typography variant="h5">Cinemasio</Typography>
-          <Styles.BarButton color="inherit" onClick={() => history.push(RoutesEnum.FilmsPage)}>
+          <Styles.BarButton color="inherit" onClick={() => history.push(RoutesEnum.MoviesPage)}>
             Movies
           </Styles.BarButton>
         </Styles.LeftContainer>
