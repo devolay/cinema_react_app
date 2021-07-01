@@ -24,3 +24,8 @@ export const YOUTUBE_URL = "https://www.youtube.com/watch?v=";
 export const BASE_POSTER_URL = "https://image.tmdb.org/t/p/original/";
 
 export const BASE_PROFILE_URL = "https://image.tmdb.org/t/p/original/";
+
+export const PHONE_REGEX =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+export const PASS_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;

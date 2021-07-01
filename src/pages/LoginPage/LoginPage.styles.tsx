@@ -110,6 +110,9 @@ export const StyledTextField = styled(TextField)`
   .MuiInputLabel-outlined {
     color: white;
   }
+  .MuiOutlinedInput-input {
+    color: white;
+  }
 `;
 
 export const RegisterProposeContainer = styled.div`

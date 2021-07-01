@@ -91,6 +91,9 @@ export const StyledTextField = styled(TextField)`
   .MuiInputLabel-outlined {
     color: white;
   }
+  .MuiOutlinedInput-input {
+    color: white;
+  }
 `;
 
 export const RegisterProposeContainer = styled.div`
@@ -98,6 +101,12 @@ export const RegisterProposeContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   flex-direction: row;
+`;
+
+export const Error = styled.p`
+  font-size: 14px;
+  margin: 4px 0 4px 0;
+  color: #f20f17;
 `;
 
 export const StyledTypo = styled(Typography)`
