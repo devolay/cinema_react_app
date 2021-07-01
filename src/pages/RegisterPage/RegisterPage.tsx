@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { RoutesEnum } from "shared/types";
 import { PHONE_REGEX, PASS_REGEX } from "shared/constants";
 import { useFormik } from "formik";
+import { useMediaQuery } from "@material-ui/core";
 
 const validationSchema = Yup.object().shape({
   fullname: Yup.string().min(3, "Too short name").required("Please enter your full name"),
@@ -25,6 +26,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const RegisterPage = ({}: Types.Props) => {
+  const matches = useMediaQuery("(min-width:600px)");
   const history = useHistory();
 
   const goToLoginPage = () => {
@@ -36,10 +38,9 @@ const RegisterPage = ({}: Types.Props) => {
       fullname: string;
       username: string;
       email: string;
-      phoneNumber: string;
       password: string;
     }>({
-      initialValues: { email: "", phoneNumber: "", fullname: "", password: "", username: "" },
+      initialValues: { email: "", fullname: "", password: "", username: "" },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
         validateForm();
@@ -47,62 +48,73 @@ const RegisterPage = ({}: Types.Props) => {
       },
     });
 
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFieldValue(e.target.id, e.target.value, false).then(() => {
+      validateField(e.target.id);
+    });
+  };
+
   return (
     <Styles.PageContainer>
-      <Styles.ImageContainer>
-        <Styles.RightContainer elevation={10}>
-          <Styles.LoginFormContainer>
-            <Styles.TitleHeader>Register</Styles.TitleHeader>
-            <Styles.LoginContainer>
-              <Styles.StyledTextField
-                id="fullname"
-                label="fullname"
-                value={values.fullname}
-                type="input"
-                variant="outlined"
-              />
-              {errors.fullname && <Styles.Error>{errors.fullname}</Styles.Error>}
-              <Styles.StyledTextField
-                id="username"
-                label="username"
-                value={values.username}
-                type="input"
-                variant="outlined"
-              />
-              {errors.username && <Styles.Error>{errors.username}</Styles.Error>}
-              <Styles.StyledTextField
-                id="email"
-                label="e-mail"
-                value={values.email}
-                type="input"
-                variant="outlined"
-              />
-              {errors.email && <Styles.Error>{errors.email}</Styles.Error>}
-              <Styles.StyledTextField
-                id="phoneNumber"
-                label="phone number"
-                value={values.phoneNumber}
-                type="input"
-                variant="outlined"
-              />
-              {errors.phoneNumber && <Styles.Error>{errors.phoneNumber}</Styles.Error>}
-              <Styles.StyledTextField
-                id="password"
-                label="password"
-                value={values.password}
-                type="password"
-                variant="outlined"
-              />
-              {errors.password && <Styles.Error>{errors.password}</Styles.Error>}
-              <Styles.LoginButton onClick={submitForm}>REGISTER</Styles.LoginButton>
-              <Styles.RegisterProposeContainer>
-                <Styles.StyledTypo variant="body2">Already have an account?</Styles.StyledTypo>
-                <Styles.StyledLink onClick={goToLoginPage}>Login</Styles.StyledLink>
-              </Styles.RegisterProposeContainer>
-            </Styles.LoginContainer>
-          </Styles.LoginFormContainer>
-        </Styles.RightContainer>
-      </Styles.ImageContainer>
+      {matches && <Styles.ImageContainer></Styles.ImageContainer>}
+      <Styles.RightContainer elevation={10}>
+        <Styles.LoginFormContainer>
+          <Styles.TitleHeader>Register</Styles.TitleHeader>
+          <Styles.LoginContainer>
+            <Styles.StyledTextField
+              id="fullname"
+              size="small"
+              label="fullname"
+              value={values.fullname}
+              onChange={onChange}
+              helperText={errors.fullname ? errors.fullname : " "}
+              type="input"
+              variant="outlined"
+              fullWidth
+            />
+            <Styles.StyledTextField
+              id="username"
+              size="small"
+              label="username"
+              value={values.username}
+              helperText={errors.username ? errors.username : " "}
+              onChange={onChange}
+              type="input"
+              variant="outlined"
+              fullWidth
+            />
+            <Styles.StyledTextField
+              id="email"
+              size="small"
+              label="e-mail"
+              value={values.email}
+              helperText={errors.email ? errors.email : " "}
+              onChange={onChange}
+              type="input"
+              variant="outlined"
+              fullWidth
+            />
+            <Styles.StyledTextField
+              id="password"
+              size="small"
+              label="password"
+              value={values.password}
+              helperText={errors.password ? errors.password : " "}
+              onChange={onChange}
+              type="password"
+              variant="outlined"
+              fullWidth
+            />
+            <Styles.LoginButton fullWidth onClick={submitForm}>
+              REGISTER
+            </Styles.LoginButton>
+            <Styles.RegisterProposeContainer>
+              <Styles.StyledTypo variant="body2">Already have an account?</Styles.StyledTypo>
+              <Styles.StyledLink onClick={goToLoginPage}>Login</Styles.StyledLink>
+            </Styles.RegisterProposeContainer>
+          </Styles.LoginContainer>
+        </Styles.LoginFormContainer>
+      </Styles.RightContainer>
     </Styles.PageContainer>
   );
 };

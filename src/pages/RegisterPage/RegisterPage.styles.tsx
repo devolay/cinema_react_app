@@ -14,8 +14,8 @@ export const ImageContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+  flex: 1;
   flex-direction: row;
-  width: 100%;
   height: 100%;
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%),
     url("https://firebasestorage.googleapis.com/v0/b/cinemasio.appspot.com/o/login_background.jpg?alt=media&token=9e9c3d2d-6dfc-41c4-84af-e38da0fe2b09");
@@ -26,20 +26,23 @@ export const ImageContainer = styled.div`
 
 export const RightContainer = styled(Paper)`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  width: 55%;
+  flex: 1;
   height: 100%;
   background-color: #29434e;
   border-radius: 0px;
+  padding: 20px;
 `;
 
 export const LoginFormContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
-  margin-left: 80px;
+  max-width: 450px;
+  width: 100%;
+  height: 500px;
 `;
 
 export const TitleHeader = styled(Typography)`
@@ -52,36 +55,27 @@ export const TitleHeader = styled(Typography)`
 export const LoginButton = styled(Button)`
   background-color: #819ca9;
   color: white;
-  width: 450px;
   height: 50px;
   font-weight: bold;
   letter-spacing: 0.1rem;
-  margin-top: 20px;
-`;
-
-export const OutsideLoginContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 40px;
 `;
 
 export const LoginContainer = styled.div`
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
-  margin-top: 15px;
-  margin-bottom: 30px;
+  width: 100%;
+  height: 400px;
 `;
 
 export const StyledTextField = styled(TextField)`
-  width: 450px;
-  height: 50px;
+  height: 40px;
   letter-spacing: 0.1rem;
-  margin-top: 20px;
+  .MuiFormHelperText-root {
+    color: #ff5252;
+  }
   .MuiOutlinedInput-notchedOutline {
     border-color: white;
   }
@@ -101,12 +95,6 @@ export const RegisterProposeContainer = styled.div`
   align-items: flex-start;
   justify-content: center;
   flex-direction: row;
-`;
-
-export const Error = styled.p`
-  font-size: 14px;
-  margin: 4px 0 4px 0;
-  color: #f20f17;
 `;
 
 export const StyledTypo = styled(Typography)`
