@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import LoadingScreen from "components/LoadingScreen/LoadingScreen";
 import { Typography } from "@material-ui/core";
 import { RoutesEnum } from "shared/types";
+import LoginPage from "pages/LoginPage";
 
 const NotFound = () => <Typography align="center">404 Not Found</Typography>;
 
@@ -11,6 +12,8 @@ const Routes = () => {
   const ReservationFormPage = lazy(() => import("pages/ReservationFormPage"));
   const FilmsPage = lazy(() => import("pages/MoviesPage"));
   const DetailsPage = lazy(() => import("pages/DetailsPage"));
+  const LoginPage = lazy(() => import("pages/LoginPage"));
+  const RegisterPage = lazy(() => import("pages/RegisterPage"));
 
   return (
     <Suspense fallback={<LoadingScreen />}>
@@ -19,6 +22,8 @@ const Routes = () => {
         <Route exact path={RoutesEnum.RoomPage} component={RoomPage} />
         <Route exact path={RoutesEnum.DetailsPage} component={DetailsPage} />
         <Route exact path={RoutesEnum.ReservationFormPage} component={ReservationFormPage} />
+        <Route path={RoutesEnum.LoginPage} exact component={LoginPage} />
+        <Route path={RoutesEnum.RegisterPage} exact component={RegisterPage} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>

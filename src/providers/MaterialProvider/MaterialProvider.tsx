@@ -5,11 +5,27 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import { unstable_createMuiStrictModeTheme as createMuiTheme } from "@material-ui/core";
 
+const fontFamily = [
+  "-apple-system",
+  "BlinkMacSystemFont",
+  "Montserrat",
+  "Segoe UI",
+  "Roboto",
+  "Oxygen",
+  "Ubuntu",
+  "Cantarell",
+  "Fira Sans",
+  "Droid Sans",
+  "Helvetica Neue",
+  "sans - serif",
+].join(",");
+
 const theme = createMuiTheme({
   typography: {
     button: {
-      textTransform: "none",
+      textTransform: "capitalize",
     },
+    fontFamily: fontFamily,
   },
   palette: {
     primary: {

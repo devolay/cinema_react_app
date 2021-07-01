@@ -43,7 +43,6 @@ export const StyledButton = styled.button`
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
-  font-family: "Montserrat", sans-serif;
   font-weight: 700;
   position: relative;
   overflow: hidden;

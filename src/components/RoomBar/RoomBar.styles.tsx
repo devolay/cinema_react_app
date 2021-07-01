@@ -14,6 +14,8 @@ export const StyledToolbar = styled(Toolbar)`
 
 export const BarButton = styled(Button)`
   margin-left: 20px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
 `;
 
 export const LeftContainer = styled.div`

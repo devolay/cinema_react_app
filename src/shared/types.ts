@@ -11,6 +11,8 @@ export enum RoutesEnum {
   ReservationFormPage = "/form",
   RoomPage = "/room",
   DetailsPage = "/details/:id",
+  LoginPage = "/login",
+  RegisterPage = "/register",
 }
 
 export interface Movie {
@@ -132,4 +134,15 @@ export interface YtVideo {
   site: string;
   size: number;
   type: string;
+}
+
+export interface Profile {
+  user_id: string;
+  reservations: Reservation[];
+}
+
+export interface Reservation {
+  reservation_id: string;
+  movie_id: number;
+  seats: SeatInfo[];
 }

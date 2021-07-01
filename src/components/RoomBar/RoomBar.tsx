@@ -12,12 +12,16 @@ const RoomBar = ({}: Types.Props) => {
     <Styles.StyledAppBar position="static">
       <Styles.StyledToolbar>
         <Styles.LeftContainer>
-          <Typography variant="h6">Cinema App</Typography>
+          <Typography variant="h5">Cinemasio</Typography>
           <Styles.BarButton color="inherit" onClick={() => history.push(RoutesEnum.FilmsPage)}>
-            Films
+            Movies
           </Styles.BarButton>
         </Styles.LeftContainer>
-        <Styles.BarButton color="inherit" startIcon={<RiAccountCircleFill />}>
+        <Styles.BarButton
+          color="inherit"
+          onClick={() => history.push(RoutesEnum.LoginPage)}
+          startIcon={<RiAccountCircleFill />}
+        >
           Login
         </Styles.BarButton>
       </Styles.StyledToolbar>

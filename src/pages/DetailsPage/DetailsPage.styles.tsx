@@ -44,7 +44,7 @@ export const UpperContainer = styled.div<{ img_src: string }>`
   border-top-right-radius: 20px;
   width: 100%;
   background-image: ${({ img_src }) =>
-    `radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,1) 100%), url(${img_src})`};
+    `radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,1) 80%), url(${img_src})`};
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -152,6 +152,8 @@ export const ReservationButton = styled(Button)`
   height: 60px;
   border: 0px;
   color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
   border-radius: 0px;
   &:hover {
     background-color: rgba(255, 255, 255, 0.2);

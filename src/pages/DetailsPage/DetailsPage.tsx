@@ -49,6 +49,14 @@ const DetailsPage = ({}: Types.Props) => {
     history.push(RoutesEnum.RoomPage);
   };
 
+  const actorCarouselSettings = {
+    dots: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    slidesPerRow: 6,
+  };
+
   return (
     <SharedStyles.Container>
       <RoomBar></RoomBar>
@@ -95,8 +103,8 @@ const DetailsPage = ({}: Types.Props) => {
               innerWidth={20}
               paddingLeft={10}
               controlsStrategy="responsive"
+              animationType="fadeout"
               disableDotsControls={true}
-              disableButtonsControls={true}
               mouseTracking={true}
             ></Styles.StyledCarousel>
             <Styles.CrouselHeader>Videos</Styles.CrouselHeader>
