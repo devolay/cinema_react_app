@@ -3,8 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import LoadingScreen from "components/LoadingScreen/LoadingScreen";
 import { Typography } from "@material-ui/core";
 import { RoutesEnum } from "shared/types";
-import LoginPage from "pages/LoginPage";
 import PrivateRoute from "./PrivateRoute";
+import PublicRoute from "./PublicRoute/index";
 
 const NotFound = () => <Typography align="center">404 Not Found</Typography>;
 
