@@ -6,6 +6,7 @@ import { RoutesEnum } from "shared/types";
 import { PHONE_REGEX, PASS_REGEX } from "shared/constants";
 import { useFormik } from "formik";
 import { useMediaQuery } from "@material-ui/core";
+import { loginWithEmail, registerWithEmail } from "store/profiles/index";
 
 const validationSchema = Yup.object().shape({
   fullname: Yup.string().min(3, "Too short name").required("Please enter your full name"),
@@ -33,6 +34,10 @@ const RegisterPage = ({}: Types.Props) => {
     history.push(RoutesEnum.LoginPage);
   };
 
+  const goToMoviesPage = () => {
+    history.push(RoutesEnum.MoviesPage);
+  };
+
   const { values, setFieldValue, errors, validateField, validateForm, isValid, submitForm } =
     useFormik<{
       fullname: string;
@@ -43,8 +48,10 @@ const RegisterPage = ({}: Types.Props) => {
       initialValues: { email: "", fullname: "", password: "", username: "" },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
-        validateForm();
-        //do smth after validation
+        if (isValid) {
+          registerWithEmail(values.email, values.password);
+          loginWithEmail(values.email, values.password).then(goToMoviesPage);
+        }
       },
     });
 
@@ -120,3 +127,6 @@ const RegisterPage = ({}: Types.Props) => {
 };
 
 export default RegisterPage;
+function goToMoviesPage(goToMoviesPage: any) {
+  throw new Error("Function not implemented.");
+}
