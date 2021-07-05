@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { GiCancel, GiConfirmed } from "react-icons/gi";
 import PriceInfo from "components/PriceInfo";
+import { BASE_IMG_URL } from "shared/constants";
 
 const RoomPage = () => {
   const history = useHistory();
@@ -49,43 +50,60 @@ const RoomPage = () => {
   return (
     <SharedStyles.Container>
       <RoomBar />
-      <Styles.CenterContainer>
-        <Styles.RoomContainer>
-          <Styles.Room>
-            {seatRows.map((row) => (
-              <Styles.Row key={row[0].id}>
-                {row.map((seat) => (
-                  <SeatItem
-                    key={seat.id}
-                    seatInfo={seat}
-                    clickHandler={() => clickHandler(seat)}
-                    isChecked={userSelectedSeats.includes(seat)}
-                  />
-                ))}
-              </Styles.Row>
-            ))}
-          </Styles.Room>
-        </Styles.RoomContainer>
-        <Styles.CenterBottomContainer>
-          <PriceInfo price={actualPrice} />
-          <Styles.StyledButton
-            variant="contained"
-            startIcon={<GiConfirmed />}
-            color="primary"
-            onClick={() => confirmHandler()}
-          >
-            Confirm
-          </Styles.StyledButton>
-          <Styles.StyledButton
-            variant="contained"
-            startIcon={<GiCancel />}
-            color="primary"
-            onClick={() => cancelHandler()}
-          >
-            Cancel
-          </Styles.StyledButton>
-        </Styles.CenterBottomContainer>
-      </Styles.CenterContainer>
+      <Styles.Card>
+        <Styles.LeftContainer>
+          <Styles.Cover
+            src="https://image.tmdb.org/t/p/w500/bvYjhsbxOBwpm8xLE5BhdA3a8CZ.jpg"
+            alt="Film Cover"
+          />
+          <Styles.TitleHeader>Avengers</Styles.TitleHeader>
+          <Styles.Info>
+            <Styles.Bold>Release date </Styles.Bold>
+            <Styles.StyledText>cos tam</Styles.StyledText>
+          </Styles.Info>
+          <Styles.Info>
+            <Styles.Bold>Time </Styles.Bold>
+            <Styles.StyledText>120min</Styles.StyledText>
+          </Styles.Info>
+        </Styles.LeftContainer>
+        <Styles.RightContainer>
+          <Styles.RoomContainer>
+            <Styles.Room>
+              {seatRows.map((row) => (
+                <Styles.Row key={row[0].id}>
+                  {row.map((seat) => (
+                    <SeatItem
+                      key={seat.id}
+                      seatInfo={seat}
+                      clickHandler={() => clickHandler(seat)}
+                      isChecked={userSelectedSeats.includes(seat)}
+                    />
+                  ))}
+                </Styles.Row>
+              ))}
+            </Styles.Room>
+          </Styles.RoomContainer>
+          <Styles.CenterBottomContainer>
+            <PriceInfo price={actualPrice} />
+            <Styles.StyledButton
+              variant="contained"
+              startIcon={<GiConfirmed />}
+              color="primary"
+              onClick={() => confirmHandler()}
+            >
+              Confirm
+            </Styles.StyledButton>
+            <Styles.StyledButton
+              variant="contained"
+              startIcon={<GiCancel />}
+              color="primary"
+              onClick={() => cancelHandler()}
+            >
+              Cancel
+            </Styles.StyledButton>
+          </Styles.CenterBottomContainer>
+        </Styles.RightContainer>
+      </Styles.Card>
       <Toaster />
     </SharedStyles.Container>
   );

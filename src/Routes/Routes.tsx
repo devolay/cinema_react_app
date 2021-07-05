@@ -20,9 +20,9 @@ const Routes = () => {
       <Switch>
         <Route exact path={RoutesEnum.MoviesPage} component={FilmsPage} />
         <Route exact path={RoutesEnum.DetailsPage} component={DetailsPage} />
-        <Route path={RoutesEnum.AuthPage} component={AuthPage} />
         <PrivateRoute exact path={RoutesEnum.ReservationFormPage} component={ReservationFormPage} />
         <PrivateRoute exact path={RoutesEnum.RoomPage} component={RoomPage} />
+        <Route component={AuthPage} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>

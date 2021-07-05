@@ -2,7 +2,7 @@ const actualDateTime = Date.now();
 
 export const API_URL_MOVIES = `https://api.themoviedb.org/3/discover/movie?api_key=250d122354ea771c8241d2810c5be94d&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&release_date.lte=${actualDateTime}&page=`;
 
-export const BASE_IMG_URL = "http://image.tmdb.org/t/p/w185/";
+export const BASE_IMG_URL = "http://image.tmdb.org/t/p/w780/";
 
 export const API_URL_DETAILS = (movie_id: string) =>
   `https://api.themoviedb.org/3/movie/${movie_id}?api_key=250d122354ea771c8241d2810c5be94d&language=en-US`;
