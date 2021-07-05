@@ -34,10 +34,10 @@ const RoomBar = ({}: Types.Props) => {
             Movies
           </Styles.BarButton>
         </Styles.LeftContainer>
-        {isLoggedIn ? (
+        {!isLoggedIn ? (
           <Styles.BarButton
             color="inherit"
-            onClick={() => history.push(RoutesEnum.AuthPage)}
+            onClick={() => history.push(RoutesEnum.LoginForm)}
             startIcon={<RiAccountCircleFill />}
           >
             Login

@@ -10,13 +10,7 @@ import { RoutesEnum } from "shared/types";
 
 const AuthPage = ({}: Types.Props) => {
   const matches = useMediaQuery("(min-width:600px)");
-  const [isRegisterForm, setIsRegisterForm] = useState(false);
   const history = useHistory();
-
-  useEffect(
-    () => history.push(isRegisterForm ? RoutesEnum.RegisterForm : RoutesEnum.LoginForm),
-    [isRegisterForm]
-  );
 
   return (
     <Styles.PageContainer>
@@ -26,12 +20,16 @@ const AuthPage = ({}: Types.Props) => {
           <Route
             exact
             path={RoutesEnum.LoginForm}
-            render={(props) => <LoginForm {...props} changeForm={setIsRegisterForm} />}
+            render={(props) => (
+              <LoginForm {...props} changeForm={() => history.push(RoutesEnum.RegisterForm)} />
+            )}
           />
           <Route
             exact
             path={RoutesEnum.RegisterForm}
-            render={(props) => <RegisterForm {...props} changeForm={setIsRegisterForm} />}
+            render={(props) => (
+              <RegisterForm {...props} changeForm={() => history.push(RoutesEnum.LoginForm)} />
+            )}
           />
         </Switch>
       </Styles.RightContainer>

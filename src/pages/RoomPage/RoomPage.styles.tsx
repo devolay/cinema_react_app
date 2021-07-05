@@ -1,4 +1,5 @@
 import { Button, Paper, Typography } from "@material-ui/core";
+import { Rating } from "@material-ui/lab";
 import styled from "styled-components";
 
 export const Row = styled.div`
@@ -23,16 +24,19 @@ export const Card = styled(Paper)`
   margin-top: 40px;
   width: 80%;
   border-radius: 20px;
-  height: 500px;
+  height: 560px;
+  padding: 30px;
+  margin-bottom: 40px;
 `;
 
-export const LeftContainer = styled.div`
+export const LeftContainer = styled(Paper)`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: 400px;
+  height: 500px;
   width: 25%;
+  background-color: #97aabd;
 `;
 
 export const RightContainer = styled.div`
@@ -40,14 +44,14 @@ export const RightContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: 400px;
   width: 75%;
 `;
 
 export const Cover = styled.img`
   width: 100%;
   height: 380px;
-  border-top-left-radius: 20px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 `;
 
 export const Room = styled.div`
@@ -57,24 +61,26 @@ export const Room = styled.div`
   padding: 40px;
   width: 500px;
   height: 400px;
-  background-color: black;
+  background-color: #1b1b1b;
 `;
 
 export const StyledButton = styled(Button)`
   margin: 20px;
   background-color: #97aabd;
+  color: black;
 `;
 
 export const StyledText = styled(Typography)`
   font-size: 14px;
-  color: white;
+  color: black;
   margin-right: 10px;
+  font-weight: 500;
 `;
 
 export const Bold = styled(Typography)`
   font-weight: bold;
   font-size: 14px;
-  color: white;
+  color: black;
   flex-wrap: wrap;
 `;
 
@@ -102,6 +108,12 @@ export const TitleHeader = styled(Bold)`
   align-items: center;
   flex-wrap: wrap;
   font-size: 18px;
-  color: white;
+  color: black;
   width: 100%;
+`;
+
+export const Stars = styled(Rating)`
+  .MuiRating-iconEmpty {
+    color: rgba(255, 255, 255, 0.4);
+  }
 `;

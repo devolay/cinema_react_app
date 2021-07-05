@@ -46,7 +46,7 @@ const DetailsPage = ({}: Types.Props) => {
   }, [movieDetails]);
 
   const reserveTickets = () => {
-    history.push(RoutesEnum.RoomPage);
+    history.push(`/details/${id}/room`);
   };
 
   const actorCarouselSettings = {

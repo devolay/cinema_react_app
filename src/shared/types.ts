@@ -9,9 +9,8 @@ export interface SeatInfo {
 export enum RoutesEnum {
   MoviesPage = "/",
   ReservationFormPage = "/form",
-  RoomPage = "/room",
+  RoomPage = "/details/:id/room",
   DetailsPage = "/details/:id",
-  AuthPage = "/auth",
   LoginForm = "/auth/login",
   RegisterForm = "/auth/register",
 }

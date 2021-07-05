@@ -4,18 +4,20 @@ export const Cardx = styled.div``;
 
 export const Label = styled.label`
   padding: 10px;
-  color: white;
+  color: black;
+  font-weight: bold;
 `;
 
 export const Price = styled.p`
-  color: white;
+  color: black;
+  font-weight: bold;
 `;
 
 export const PriceContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 6px 16px;
   font-size: 0.875rem;
   min-width: 64px;

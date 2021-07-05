@@ -1,4 +1,5 @@
 import * as Styles from "./RoomPage.styles";
+import * as Types from "./RoomPage.types";
 import * as SharedStyles from "shared/styles";
 import SeatItem from "components/SeatItem";
 import { splitEvery } from "ramda";
@@ -6,17 +7,31 @@ import { RoutesEnum, SeatInfo } from "shared/types";
 import { useState, useEffect } from "react";
 import RoomBar from "components/RoomBar/RoomBar";
 import useCinemaContext from "./../../hooks/useCinemaContext";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { GiCancel, GiConfirmed } from "react-icons/gi";
 import PriceInfo from "components/PriceInfo";
+import { Dispatch } from "store";
+import { useDispatch, useSelector } from "react-redux";
+import services from "store/services";
 import { BASE_IMG_URL } from "shared/constants";
 
 const RoomPage = () => {
+  const { id } = useParams<Types.DetailsParams>();
   const history = useHistory();
   const { seatsData, userId, setUserSelectedSeats, userSelectedSeats } = useCinemaContext();
   const [actualPrice, setActualPrice] = useState(0);
   const seatRows = splitEvery(6, seatsData);
+  const dispatch = useDispatch<Dispatch>();
+  const movieDetails = useSelector(services.selectors.movies.selectMovieDetails);
+
+  useEffect(() => {
+    dispatch(services.actions.movies.getMovieDetails({ id: id }));
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [id]);
 
   useEffect(() => {
     setActualPrice(calculatePrice);
@@ -52,18 +67,19 @@ const RoomPage = () => {
       <RoomBar />
       <Styles.Card>
         <Styles.LeftContainer>
-          <Styles.Cover
-            src="https://image.tmdb.org/t/p/w500/bvYjhsbxOBwpm8xLE5BhdA3a8CZ.jpg"
-            alt="Film Cover"
-          />
+          <Styles.Cover src={BASE_IMG_URL + movieDetails?.poster_path} alt="Film Cover" />
           <Styles.TitleHeader>Avengers</Styles.TitleHeader>
           <Styles.Info>
             <Styles.Bold>Release date </Styles.Bold>
-            <Styles.StyledText>cos tam</Styles.StyledText>
+            <Styles.StyledText>{movieDetails?.release_date}</Styles.StyledText>
           </Styles.Info>
           <Styles.Info>
             <Styles.Bold>Time </Styles.Bold>
-            <Styles.StyledText>120min</Styles.StyledText>
+            <Styles.StyledText>{movieDetails?.runtime}</Styles.StyledText>
+          </Styles.Info>
+          <Styles.Info>
+            <Styles.Bold>Genre </Styles.Bold>
+            <Styles.StyledText>{movieDetails?.genres[0].name}</Styles.StyledText>
           </Styles.Info>
         </Styles.LeftContainer>
         <Styles.RightContainer>
