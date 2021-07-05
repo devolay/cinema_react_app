@@ -11,8 +11,9 @@ export enum RoutesEnum {
   ReservationFormPage = "/form",
   RoomPage = "/room",
   DetailsPage = "/details/:id",
-  LoginPage = "/login",
-  RegisterPage = "/register",
+  AuthPage = "/auth",
+  LoginForm = "/auth/login",
+  RegisterForm = "/auth/register",
 }
 
 export interface Movie {

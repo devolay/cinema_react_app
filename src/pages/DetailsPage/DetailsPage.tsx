@@ -60,7 +60,7 @@ const DetailsPage = ({}: Types.Props) => {
   return (
     <SharedStyles.Container>
       <RoomBar></RoomBar>
-      <Grow timeout={300} in={isLoaded} disableStrictModeCompat>
+      <Grow timeout={500} in={isLoaded} disableStrictModeCompat>
         <Styles.Card elevation={10}>
           <Styles.UpperContainer
             img_src={movieImages.length > 0 ? BASE_POSTER_URL + movieImages[0].file_path : ""}

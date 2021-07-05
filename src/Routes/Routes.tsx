@@ -13,16 +13,14 @@ const Routes = () => {
   const ReservationFormPage = lazy(() => import("pages/ReservationFormPage"));
   const FilmsPage = lazy(() => import("pages/MoviesPage"));
   const DetailsPage = lazy(() => import("pages/DetailsPage"));
-  const LoginPage = lazy(() => import("pages/LoginPage"));
-  const RegisterPage = lazy(() => import("pages/RegisterPage"));
+  const AuthPage = lazy(() => import("pages/AuthPage"));
 
   return (
     <Suspense fallback={<LoadingScreen />}>
       <Switch>
-        <Route path={RoutesEnum.MoviesPage} exact component={FilmsPage} />
+        <Route exact path={RoutesEnum.MoviesPage} component={FilmsPage} />
         <Route exact path={RoutesEnum.DetailsPage} component={DetailsPage} />
-        <Route path={RoutesEnum.LoginPage} exact component={LoginPage} />
-        <Route path={RoutesEnum.RegisterPage} exact component={RegisterPage} />
+        <Route path={RoutesEnum.AuthPage} component={AuthPage} />
         <PrivateRoute exact path={RoutesEnum.ReservationFormPage} component={ReservationFormPage} />
         <PrivateRoute exact path={RoutesEnum.RoomPage} component={RoomPage} />
         <Route component={NotFound} />

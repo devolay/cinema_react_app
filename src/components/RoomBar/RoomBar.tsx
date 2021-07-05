@@ -37,7 +37,7 @@ const RoomBar = ({}: Types.Props) => {
         {isLoggedIn ? (
           <Styles.BarButton
             color="inherit"
-            onClick={() => history.push(RoutesEnum.LoginPage)}
+            onClick={() => history.push(RoutesEnum.AuthPage)}
             startIcon={<RiAccountCircleFill />}
           >
             Login
