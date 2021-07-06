@@ -9,6 +9,12 @@ export const Row = styled.div`
   padding: 5px;
 `;
 
+export const HourContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Screen = styled.div`
   display: flex;
   align-items: center;

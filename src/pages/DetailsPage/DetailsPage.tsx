@@ -13,7 +13,6 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import ActorCard from "components/ActorCard";
 import ReactPlayer from "react-player/youtube";
 import MovieCard from "components/MovieCard";
-import { RoutesEnum } from "shared/types";
 import { useHistory } from "react-router-dom";
 
 const DetailsPage = ({}: Types.Props) => {
