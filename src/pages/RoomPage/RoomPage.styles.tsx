@@ -5,6 +5,19 @@ import styled from "styled-components";
 export const Row = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  padding: 5px;
+`;
+
+export const Screen = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  background-color: grey;
+  height: 20px;
+  border-radius: 50px;
+  margin-bottom: 20px;
 `;
 
 export const RoomContainer = styled.div`
@@ -13,6 +26,7 @@ export const RoomContainer = styled.div`
   align-items: center;
   flex-direction: row;
   margin-top: 40px;
+  width: 100%;
 `;
 
 export const Card = styled(Paper)`
@@ -25,8 +39,8 @@ export const Card = styled(Paper)`
   width: 80%;
   border-radius: 20px;
   height: 560px;
-  padding: 30px;
-  margin-bottom: 40px;
+  padding: 20px;
+  margin-bottom: 30px;
 `;
 
 export const LeftContainer = styled(Paper)`
@@ -34,17 +48,34 @@ export const LeftContainer = styled(Paper)`
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  height: 500px;
+  height: 520px;
   width: 25%;
   background-color: #97aabd;
 `;
 
+export const InfoContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+`;
+
 export const RightContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
   width: 75%;
+`;
+
+export const RightUpperContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 80%;
+  flex-direction: row;
 `;
 
 export const Cover = styled.img`
@@ -57,10 +88,12 @@ export const Cover = styled.img`
 export const Room = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
   border-radius: 10px;
-  padding: 40px;
-  width: 500px;
-  height: 400px;
+  height: 350px;
+  width: 80%;
   background-color: #1b1b1b;
 `;
 
@@ -82,6 +115,10 @@ export const Bold = styled(Typography)`
   font-size: 14px;
   color: black;
   flex-wrap: wrap;
+`;
+
+export const ScreenTitle = styled(Bold)`
+  color: white;
 `;
 
 export const Info = styled.div`

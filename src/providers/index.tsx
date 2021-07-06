@@ -6,6 +6,8 @@ import { Provider } from "react-redux";
 import store from "store";
 import FirebaseProvider from "./FirebaseProvider";
 import { Toaster } from "react-hot-toast";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
 
 const Providers = () => {
   return (
@@ -13,10 +15,12 @@ const Providers = () => {
       <FirebaseProvider>
         <CinemaProvider>
           <MaterialProvider>
-            <PageProvider>
-              <RouterProvider />
-              <Toaster />
-            </PageProvider>
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <PageProvider>
+                <RouterProvider />
+                <Toaster />
+              </PageProvider>
+            </MuiPickersUtilsProvider>
           </MaterialProvider>
         </CinemaProvider>
       </FirebaseProvider>
