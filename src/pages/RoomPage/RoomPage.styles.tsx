@@ -5,14 +5,16 @@ import styled from "styled-components";
 export const Row = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   padding: 5px;
+  width: 100%;
 `;
 
 export const HourContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 `;
 
 export const Screen = styled.div`
@@ -31,15 +33,14 @@ export const RoomContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   flex-direction: row;
-  margin-top: 40px;
   width: 100%;
 `;
 
 export const Card = styled(Paper)`
   background-color: #29434e;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
   margin-top: 40px;
   width: 80%;

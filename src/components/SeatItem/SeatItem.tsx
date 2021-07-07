@@ -5,7 +5,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 const SeatItem = ({ seatInfo, clickHandler, isChecked }: Types.Props) => {
   return (
     <Styles.Container isBusy={!!seatInfo.userId} notConfirmed={isChecked} onClick={clickHandler}>
-      <BsFillPersonFill size={35} />
+      <BsFillPersonFill size={25} />
     </Styles.Container>
   );
 };

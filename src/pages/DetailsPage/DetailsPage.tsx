@@ -42,6 +42,9 @@ const DetailsPage = ({}: Types.Props) => {
     if (movieDetails !== null) {
       setIsLoaded(true);
     }
+    return () => {
+      setIsLoaded(false);
+    };
   }, [movieDetails]);
 
   const reserveTickets = () => {

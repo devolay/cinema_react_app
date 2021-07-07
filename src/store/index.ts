@@ -12,7 +12,6 @@ import {
 } from "redux-firestore";
 import { FirebaseReducer, firebaseReducer, getFirebase } from "react-redux-firebase";
 import thunk from "redux-thunk";
-import { moviesSlice } from "./movies/movies.slice";
 import { InitialState } from "./movies/movies.types";
 
 const firebaseConfig = {
@@ -36,6 +35,8 @@ const rrfConfig = {
 export interface FirestoreSchema {
   profiles: SharedTypes.Profile[];
   reservations: SharedTypes.Reservation[];
+  rooms: SharedTypes.Room[];
+  showtimes: SharedTypes.Showtime[];
 }
 
 export interface RootState {

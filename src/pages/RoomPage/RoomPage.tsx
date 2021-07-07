@@ -16,16 +16,25 @@ import { useDispatch, useSelector } from "react-redux";
 import services from "store/services";
 import { BASE_IMG_URL } from "shared/constants";
 import { DatePicker } from "@material-ui/pickers";
-import { Grow } from "@material-ui/core";
+import { Grow, useMediaQuery } from "@material-ui/core";
 
 const RoomPage = () => {
   const { id } = useParams<Types.DetailsParams>();
+  const matches = useMediaQuery("(min-width:900px)");
   const history = useHistory();
   const { seatsData, userId, setUserSelectedSeats, userSelectedSeats } = useCinemaContext();
   const [actualPrice, setActualPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoaded, setIsLoaded] = useState(false);
-  const seatRows = splitEvery(6, seatsData);
+  const seatRows = splitEvery(
+    Math.max.apply(
+      Math,
+      seatsData.map(function (o) {
+        return o.column;
+      })
+    ),
+    seatsData
+  );
   const dispatch = useDispatch<Dispatch>();
   const movieDetails = useSelector(services.selectors.movies.selectMovieDetails);
 
@@ -76,29 +85,66 @@ const RoomPage = () => {
     setUserSelectedSeats([]);
   };
 
+  const randomHours = () => {
+    const hours = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+    const mins = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
+    const maxShowtimesCount = 8;
+    const showtimeCount = Math.floor(Math.random() * maxShowtimesCount + 1);
+    var showtimesArray = [];
+    for (let i = 0; i < showtimeCount; i++) {
+      let randomHour = hours[Math.floor(Math.random() * hours.length)];
+      let randomMin = mins[Math.floor(Math.random() * mins.length)];
+      showtimesArray.push(
+        randomHour.toString() +
+          ":" +
+          (randomMin < 10 ? "0" + randomMin.toString() : randomMin.toString())
+      );
+    }
+    return showtimesArray;
+  };
+
+  const randomRoomNumber = () => {
+    return Math.floor(Math.random() * 20 + 1);
+  };
+
+  const randomRoomSeats = () => {
+    const minRows = 4;
+    const maxRows = 12;
+    const minSeatsInRow = 6;
+    const maxSeatsInRow = 22;
+    for (let i = 0; i < 20; i++) {
+      let rowsCount = Math.floor(Math.random() * (maxRows - minRows) + minRows);
+      let seatsInRowCount = Math.floor(
+        Math.random() * (maxSeatsInRow - minSeatsInRow) + minSeatsInRow
+      );
+    }
+  };
+
   return (
     <SharedStyles.Container>
       <RoomBar />
       <Grow timeout={500} in={isLoaded}>
         <Styles.Card>
-          <Styles.LeftContainer>
-            <Styles.Cover src={BASE_IMG_URL + movieDetails?.poster_path} alt="Film Cover" />
-            <Styles.InfoContainer>
-              <Styles.TitleHeader>{movieDetails?.title}</Styles.TitleHeader>
-              <Styles.Info>
-                <Styles.Bold>Release date </Styles.Bold>
-                <Styles.StyledText>{movieDetails?.release_date}</Styles.StyledText>
-              </Styles.Info>
-              <Styles.Info>
-                <Styles.Bold>Time </Styles.Bold>
-                <Styles.StyledText>{movieDetails?.runtime + " min"}</Styles.StyledText>
-              </Styles.Info>
-              <Styles.Info>
-                <Styles.Bold>Genre </Styles.Bold>
-                <Styles.StyledText>{movieDetails?.genres[0].name}</Styles.StyledText>
-              </Styles.Info>
-            </Styles.InfoContainer>
-          </Styles.LeftContainer>
+          {matches && (
+            <Styles.LeftContainer>
+              <Styles.Cover src={BASE_IMG_URL + movieDetails?.poster_path} alt="Film Cover" />
+              <Styles.InfoContainer>
+                <Styles.TitleHeader>{movieDetails?.title}</Styles.TitleHeader>
+                <Styles.Info>
+                  <Styles.Bold>Release date </Styles.Bold>
+                  <Styles.StyledText>{movieDetails?.release_date}</Styles.StyledText>
+                </Styles.Info>
+                <Styles.Info>
+                  <Styles.Bold>Time </Styles.Bold>
+                  <Styles.StyledText>{movieDetails?.runtime + " min"}</Styles.StyledText>
+                </Styles.Info>
+                <Styles.Info>
+                  <Styles.Bold>Genre </Styles.Bold>
+                  <Styles.StyledText>{movieDetails?.genres[0].name}</Styles.StyledText>
+                </Styles.Info>
+              </Styles.InfoContainer>
+            </Styles.LeftContainer>
+          )}
           <Styles.RightContainer>
             <Styles.RightUpperContainer>
               <DatePicker
@@ -108,7 +154,9 @@ const RoomPage = () => {
                 onChange={handleDateChange}
                 animateYearScrolling
               />
-              <Styles.StyledButton>18:00</Styles.StyledButton>
+              <Styles.HourContainer>
+                <Styles.StyledButton onClick={randomHours}>18:00</Styles.StyledButton>
+              </Styles.HourContainer>
             </Styles.RightUpperContainer>
             <Styles.RoomContainer>
               <Styles.Room>
