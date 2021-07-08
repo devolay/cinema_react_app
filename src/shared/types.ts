@@ -1,7 +1,6 @@
 export interface SeatInfo {
   id: number;
   column: number;
-  row: number;
   userId?: string;
   price: number;
 }
@@ -144,6 +143,8 @@ export interface Profile {
 export interface Reservation {
   reservation_id: string;
   movie_id: number;
+  date: Date;
+  hour: string;
   seats: SeatInfo[];
   room: Showtime;
 }
@@ -152,12 +153,12 @@ export interface Showtime {
   showtime_id: string;
   room_number: number;
   hour: string;
+  date: Date;
   movie_id: number;
   seats: SeatInfo[];
 }
 
 export interface Room {
-  room_id: string;
   room_number: number;
   seats: SeatInfo[];
 }

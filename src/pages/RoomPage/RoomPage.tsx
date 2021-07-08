@@ -1,6 +1,7 @@
 import * as Styles from "./RoomPage.styles";
 import * as Types from "./RoomPage.types";
 import * as SharedStyles from "shared/styles";
+import * as SharedTypes from "shared/types";
 import SeatItem from "components/SeatItem";
 import { splitEvery } from "ramda";
 import { RoutesEnum, SeatInfo } from "shared/types";
@@ -17,11 +18,16 @@ import services from "store/services";
 import { BASE_IMG_URL } from "shared/constants";
 import { DatePicker } from "@material-ui/pickers";
 import { Grow, useMediaQuery } from "@material-ui/core";
+import { useFirestore } from "react-redux-firebase";
+import { selectRoomByNumber } from "store/rooms";
+import { selectUser, selectUserProfileById } from "store/profiles";
 
 const RoomPage = () => {
   const { id } = useParams<Types.DetailsParams>();
   const matches = useMediaQuery("(min-width:900px)");
   const history = useHistory();
+  const firestore = useFirestore();
+  const user = useSelector(selectRoomByNumber(3));
   const { seatsData, userId, setUserSelectedSeats, userSelectedSeats } = useCinemaContext();
   const [actualPrice, setActualPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -107,18 +113,34 @@ const RoomPage = () => {
     return Math.floor(Math.random() * 20 + 1);
   };
 
-  const randomRoomSeats = () => {
-    const minRows = 4;
-    const maxRows = 12;
-    const minSeatsInRow = 6;
-    const maxSeatsInRow = 22;
-    for (let i = 0; i < 20; i++) {
-      let rowsCount = Math.floor(Math.random() * (maxRows - minRows) + minRows);
-      let seatsInRowCount = Math.floor(
-        Math.random() * (maxSeatsInRow - minSeatsInRow) + minSeatsInRow
-      );
-    }
-  };
+  //ROOM GENERATOR
+  // const generateRooms = () => {
+  //   const minRows = 4;
+  //   const maxRows = 12;
+  //   const minSeatsInRow = 6;
+  //   const maxSeatsInRow = 22;
+  //   var seatsCount = [];
+  //   var seatsInRowCountArray = [];
+  //   for (let i = 0; i < 20; i++) {
+  //     let rowsCount = Math.floor(Math.random() * (maxRows - minRows) + minRows);
+  //     let seatsInRowCount = Math.floor(
+  //       Math.random() * (maxSeatsInRow - minSeatsInRow) + minSeatsInRow
+  //     );
+  //     seatsInRowCountArray.push(seatsInRowCount);
+  //     seatsCount.push(rowsCount * seatsInRowCount);
+  //   }
+  //   var rooms: SharedTypes.Room[] = [];
+  //   for (let i = 0; i < 20; i++) {
+  //     rooms.push({ room_number: i + 1, seats: [] });
+  //     rooms[i].room_number = i + 1;
+  //     var roomsArray: SeatInfo[] = [];
+  //     for (let j = 0; j < seatsCount[i]; j++) {
+  //       roomsArray.push({ id: j, column: (j % seatsInRowCountArray[i]) + 1, price: 13.99 });
+  //     }
+  //     rooms[i].seats = roomsArray;
+  //   }
+  //   rooms.map((room) => firestore.collection("rooms").add(room));
+  // };
 
   return (
     <SharedStyles.Container>
@@ -155,7 +177,7 @@ const RoomPage = () => {
                 animateYearScrolling
               />
               <Styles.HourContainer>
-                <Styles.StyledButton onClick={randomHours}>18:00</Styles.StyledButton>
+                <Styles.StyledButton onClick={() => console.log(user)}>18:00</Styles.StyledButton>
               </Styles.HourContainer>
             </Styles.RightUpperContainer>
             <Styles.RoomContainer>
