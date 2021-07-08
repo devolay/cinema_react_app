@@ -9,7 +9,8 @@ export const selectUser = (state: RootState) => state.firebase.auth;
 export const selectUserProfileById =
   (userId: string) =>
   ({ firestore: { data } }: RootState) =>
-    !!data.profiles && (data.profiles[userId] as unknown as SharedTypes.Profile);
+    (data.profiles as unknown as SharedTypes.Profile[]) &&
+    (data.profiles[userId] as unknown as SharedTypes.Profile);
 
 export const selectCurrentUserProfile = (state: RootState) => state.firebase.profile;
 

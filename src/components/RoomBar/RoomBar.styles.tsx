@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { AppBar, Button, Menu, Toolbar } from "@material-ui/core";
+import { AppBar, Button, Toolbar } from "@material-ui/core";
 
 export const StyledAppBar = styled(AppBar)`
   display: flex;

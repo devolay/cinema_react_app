@@ -1,14 +1,11 @@
-import * as Types from "./AuthPage.types";
 import * as Styles from "./AuthPage.styles";
 import { useMediaQuery } from "@material-ui/core";
-import { useState, useEffect } from "react";
 import LoginForm from "components/LoginForm";
 import RegisterForm from "components/RegisterForm";
 import { Route, Switch, useHistory } from "react-router-dom";
-import PublicRoute from "Routes/PublicRoute";
 import { RoutesEnum } from "shared/types";
 
-const AuthPage = ({}: Types.Props) => {
+const AuthPage = () => {
   const matches = useMediaQuery("(min-width:600px)");
   const history = useHistory();
 

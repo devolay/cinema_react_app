@@ -1,7 +1,6 @@
 import * as Styles from "./RoomPage.styles";
 import * as Types from "./RoomPage.types";
 import * as SharedStyles from "shared/styles";
-import * as SharedTypes from "shared/types";
 import SeatItem from "components/SeatItem";
 import { splitEvery } from "ramda";
 import { RoutesEnum, SeatInfo } from "shared/types";
@@ -18,28 +17,29 @@ import services from "store/services";
 import { BASE_IMG_URL } from "shared/constants";
 import { DatePicker } from "@material-ui/pickers";
 import { Grow, useMediaQuery } from "@material-ui/core";
-import { useFirestore } from "react-redux-firebase";
+import { useFirestore, useFirestoreConnect } from "react-redux-firebase";
 import { selectRoomByNumber } from "store/rooms";
 import { selectUser, selectUserProfileById } from "store/profiles";
+import { firestoreConnect } from "react-redux-firebase";
 
 const RoomPage = () => {
   const { id } = useParams<Types.DetailsParams>();
   const matches = useMediaQuery("(min-width:900px)");
   const history = useHistory();
+  firestoreConnect(() => ["rooms"]); // sync todos collection from Firestore into redux
   const firestore = useFirestore();
-  const user = useSelector(selectRoomByNumber(3));
+  const room = useSelector(selectRoomByNumber(3));
   const { seatsData, userId, setUserSelectedSeats, userSelectedSeats } = useCinemaContext();
   const [actualPrice, setActualPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoaded, setIsLoaded] = useState(false);
+
   const seatRows = splitEvery(
     Math.max.apply(
       Math,
-      seatsData.map(function (o) {
-        return o.column;
-      })
+      room.seats.map((o) => o.column)
     ),
-    seatsData
+    [room]
   );
   const dispatch = useDispatch<Dispatch>();
   const movieDetails = useSelector(services.selectors.movies.selectMovieDetails);
@@ -177,7 +177,7 @@ const RoomPage = () => {
                 animateYearScrolling
               />
               <Styles.HourContainer>
-                <Styles.StyledButton onClick={() => console.log(user)}>18:00</Styles.StyledButton>
+                <Styles.StyledButton onClick={}>18:00</Styles.StyledButton>
               </Styles.HourContainer>
             </Styles.RightUpperContainer>
             <Styles.RoomContainer>

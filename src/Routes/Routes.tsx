@@ -4,7 +4,6 @@ import LoadingScreen from "components/LoadingScreen/LoadingScreen";
 import { Typography } from "@material-ui/core";
 import { RoutesEnum } from "shared/types";
 import PrivateRoute from "./PrivateRoute";
-import PublicRoute from "./PublicRoute/index";
 
 const NotFound = () => <Typography align="center">404 Not Found</Typography>;
 

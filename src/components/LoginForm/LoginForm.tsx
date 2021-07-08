@@ -4,7 +4,6 @@ import DividerWithText from "components/DividerWithText";
 import { useFormik } from "formik";
 import { RoutesEnum } from "shared/types";
 import { useHistory } from "react-router-dom";
-import { useFirebase } from "react-redux-firebase";
 import { loginWithEmail, loginWithFacebook, loginWithGoogle } from "store/profiles";
 import toast from "react-hot-toast";
 import { PASS_REGEX } from "shared/constants";
@@ -22,7 +21,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm = ({ changeForm }: Types.Props) => {
-  const firebase = useFirebase();
   const history = useHistory();
 
   const goToMoviesPage = () => {

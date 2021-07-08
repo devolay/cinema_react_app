@@ -1,4 +1,3 @@
-import * as Types from "./RoomBar.types";
 import { MenuItem, Typography, Menu } from "@material-ui/core";
 import * as Styles from "./RoomBar.styles";
 import { RiAccountCircleFill } from "react-icons/ri";
@@ -8,7 +7,7 @@ import { useSelector } from "react-redux";
 import { logout, selectLoggedIn } from "store/profiles";
 import { useState } from "react";
 
-const RoomBar = ({}: Types.Props) => {
+const RoomBar = () => {
   const history = useHistory();
   const isLoggedIn = useSelector(selectLoggedIn);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

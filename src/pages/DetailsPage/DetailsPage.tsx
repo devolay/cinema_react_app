@@ -15,7 +15,7 @@ import ReactPlayer from "react-player/youtube";
 import MovieCard from "components/MovieCard";
 import { useHistory } from "react-router-dom";
 
-const DetailsPage = ({}: Types.Props) => {
+const DetailsPage = () => {
   const { id } = useParams<Types.DetailsParams>();
   const movieDetails = useSelector(services.selectors.movies.selectMovieDetails);
   const movieCredits = useSelector(services.selectors.movies.selectCreditsDetails);
@@ -49,14 +49,6 @@ const DetailsPage = ({}: Types.Props) => {
 
   const reserveTickets = () => {
     history.push(`/details/${id}/room`);
-  };
-
-  const actorCarouselSettings = {
-    dots: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    slidesPerRow: 6,
   };
 
   return (
