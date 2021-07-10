@@ -150,7 +150,6 @@ export interface Reservation {
 }
 
 export interface Showtime {
-  showtime_id: string;
   room_number: number;
   hour: string;
   date: Date;
