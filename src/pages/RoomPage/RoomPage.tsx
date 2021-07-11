@@ -19,11 +19,11 @@ import { BASE_IMG_URL } from "shared/constants";
 import { DatePicker } from "@material-ui/pickers";
 import { Grow, useMediaQuery } from "@material-ui/core";
 import { useFirestore, useFirestoreConnect } from "react-redux-firebase";
-import { selectRoomByNumber } from "store/rooms";
-import { selectCurrentDateShowtimes } from "store/showtimes";
+import { selectAllRooms } from "store/rooms";
+import { selectCurrentDateMovieShowtimes } from "store/showtimes";
 
 const RoomPage = () => {
-  useFirestoreConnect([{ collection: "rooms" }]);
+  useFirestoreConnect(["rooms", "showtimes"]);
   const firestore = useFirestore();
   const { id } = useParams<Types.DetailsParams>();
   const dispatch = useDispatch<Dispatch>();
@@ -33,10 +33,9 @@ const RoomPage = () => {
   const [actualPrice, setActualPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [isLoaded, setIsLoaded] = useState(false);
-  const [currentRoomNumber, setCurrentRoomNumber] = useState<number>(1);
-  const currentDateShowtimes = useSelector(selectCurrentDateShowtimes(selectedDate));
+  const currentDateShowtimes = useSelector(selectCurrentDateMovieShowtimes(selectedDate, id));
   const movieDetails = useSelector(services.selectors.movies.selectMovieDetails);
-  const currentRoom = useSelector(selectRoomByNumber(currentRoomNumber));
+  const allRooms = useSelector(selectAllRooms);
   const seatRows = splitEvery(
     Math.max.apply(
       Math,
@@ -48,22 +47,23 @@ const RoomPage = () => {
   );
 
   useEffect(() => {
-    if (!currentDateShowtimes && currentRoom) {
+    console.log(currentDateShowtimes);
+    if (!currentDateShowtimes && allRooms) {
       const randomHoursArray = randomHours();
       randomHoursArray.map((x) => {
-        const randomNumber = randomRoomNumber();
-        setCurrentRoomNumber(randomNumber);
-        console.log(currentRoom);
+        const roomNumber = randomRoomNumber();
+        const room =
+          !!allRooms && allRooms.find((room: SharedTypes.Room) => room.room_number === roomNumber);
         firestore.collection("showtimes").add({
-          room_number: randomNumber,
+          room_number: roomNumber,
           hour: x,
-          date: selectedDate,
+          date: new Date(selectedDate.setHours(0, 0, 0, 0)),
           movie_id: parseInt(id),
-          seats: currentRoom.seats,
+          seats: room?.seats,
         });
       });
     }
-  }, [currentDateShowtimes]);
+  }, [currentDateShowtimes, allRooms]);
 
   useEffect(() => {
     if (movieDetails !== null) {
@@ -85,6 +85,7 @@ const RoomPage = () => {
 
   const handleDateChange = (date: any) => {
     setSelectedDate(date);
+    console.log(currentDateShowtimes);
   };
 
   const calculatePrice = () => {
@@ -115,7 +116,7 @@ const RoomPage = () => {
   const randomHours = () => {
     const hours = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
     const mins = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
-    const maxShowtimesCount = 8;
+    const maxShowtimesCount = 6;
     const showtimeCount = Math.floor(Math.random() * maxShowtimesCount + 1);
     var showtimesArray = [];
     for (let i = 0; i < showtimeCount; i++) {
@@ -198,10 +199,10 @@ const RoomPage = () => {
                 animateYearScrolling
               />
               <Styles.HourContainer>
-                {currentDateShowtimes &&
+                {/* {currentDateShowtimes &&
                   currentDateShowtimes.map((showtime: SharedTypes.Showtime) => (
                     <Styles.StyledButton>{showtime.hour}</Styles.StyledButton>
-                  ))}
+                  ))} */}
               </Styles.HourContainer>
             </Styles.RightUpperContainer>
             <Styles.RoomContainer>
