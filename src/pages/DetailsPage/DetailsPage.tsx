@@ -13,7 +13,6 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import ActorCard from "components/ActorCard";
 import ReactPlayer from "react-player/youtube";
 import MovieCard from "components/MovieCard";
-import { useHistory } from "react-router-dom";
 
 const DetailsPage = () => {
   const { id } = useParams<Types.DetailsParams>();
@@ -24,7 +23,6 @@ const DetailsPage = () => {
   const ytVideos = useSelector(services.selectors.movies.selectYtVideos);
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch<Dispatch>();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(services.actions.movies.getMovieDetails({ id: id }));
@@ -36,7 +34,7 @@ const DetailsPage = () => {
       top: 0,
       behavior: "smooth",
     });
-  }, [id]);
+  }, [id, dispatch]);
 
   useEffect(() => {
     if (movieDetails !== null) {
@@ -46,10 +44,6 @@ const DetailsPage = () => {
       setIsLoaded(false);
     };
   }, [movieDetails]);
-
-  const reserveTickets = () => {
-    history.push(`/details/${id}/room`);
-  };
 
   return (
     <SharedStyles.Container>

@@ -6,7 +6,7 @@ import { selectLoggedIn } from "store/profiles";
 const PrivateRoute = (props: RouteProps) => {
   const isLoggedIn = useSelector(selectLoggedIn);
 
-  return isLoggedIn ? <Route {...props} /> : <Redirect to={RoutesEnum.MoviesPage} />;
+  return isLoggedIn ? <Route {...props} /> : <Redirect to={RoutesEnum.LoginForm} />;
 };
 
 export default PrivateRoute;

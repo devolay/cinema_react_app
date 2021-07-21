@@ -15,7 +15,7 @@ const MoviesPage = () => {
 
   useEffect(() => {
     dispatch(services.actions.movies.getMovies({ page: selectedPage }));
-  }, [selectedPage]);
+  }, [selectedPage, dispatch]);
 
   const onPageChange = (_: React.ChangeEvent<unknown>, page: number) => {
     dispatch(services.actions.movies.setCurrentPage(page));

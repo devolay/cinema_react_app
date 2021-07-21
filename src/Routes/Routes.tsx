@@ -15,8 +15,8 @@ const Routes = () => {
   return (
     <Suspense fallback={<LoadingScreen />}>
       <Switch>
-        <Route exact path={RoutesEnum.MoviesPage} component={FilmsPage} />
-        <Route exact path={RoutesEnum.DetailsPage} component={DetailsPage} />
+        <PrivateRoute exact path={RoutesEnum.MoviesPage} component={FilmsPage} />
+        <PrivateRoute exact path={RoutesEnum.DetailsPage} component={DetailsPage} />
         <Route component={AuthPage} />
         <Route component={NotFound} />
       </Switch>
