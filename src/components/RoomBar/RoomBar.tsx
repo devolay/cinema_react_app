@@ -1,28 +1,56 @@
-import { MenuItem, Typography, Menu } from "@material-ui/core";
+import {
+  MenuItem,
+  Typography,
+  Popper,
+  Grow,
+  Paper,
+  ClickAwayListener,
+  MenuList,
+} from "@material-ui/core";
 import * as Styles from "./RoomBar.styles";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { useHistory } from "react-router-dom";
 import { RoutesEnum } from "shared/types";
 import { useSelector } from "react-redux";
 import { logout, selectLoggedIn } from "store/profiles";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 const RoomBar = () => {
   const history = useHistory();
   const isLoggedIn = useSelector(selectLoggedIn);
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const anchorRef = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event: React.MouseEvent<EventTarget>) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
+      return;
+    }
+    setOpen(false);
   };
 
   const handleLogout = () => {
     logout();
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  function handleListKeyDown(event: React.KeyboardEvent) {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+
+  // return focus to the button when we transitioned from !open -> open
+  const prevOpen = useRef(open);
+  useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current!.focus();
+    }
+    prevOpen.current = open;
+  }, [open]);
 
   return (
     <Styles.StyledAppBar position="static">
@@ -44,7 +72,8 @@ const RoomBar = () => {
         ) : (
           <div>
             <Styles.BarButton
-              aria-controls="simple-menu"
+              aria-controls={open ? "menu-list-grow" : undefined}
+              ref={anchorRef}
               aria-haspopup="true"
               color="inherit"
               startIcon={<RiAccountCircleFill />}
@@ -52,16 +81,35 @@ const RoomBar = () => {
             >
               Profile
             </Styles.BarButton>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              keepMounted
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
+            <Popper
+              open={open}
+              anchorEl={anchorRef.current}
+              role={undefined}
+              transition
+              disablePortal
             >
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
-            </Menu>
+              {({ TransitionProps, placement }) => (
+                <Grow
+                  {...TransitionProps}
+                  style={{
+                    transformOrigin: placement === "bottom" ? "center top" : "center bottom",
+                  }}
+                >
+                  <Paper>
+                    <ClickAwayListener onClickAway={handleClose}>
+                      <MenuList
+                        autoFocusItem={open}
+                        id="menu-list-grow"
+                        onKeyDown={handleListKeyDown}
+                      >
+                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                      </MenuList>
+                    </ClickAwayListener>
+                  </Paper>
+                </Grow>
+              )}
+            </Popper>
           </div>
         )}
       </Styles.StyledToolbar>

@@ -8,3 +8,6 @@ export const selectRoomByNumber =
     (Object.values(data.rooms).find(
       (room) => (room as unknown as SharedTypes.Room).room_number === room_number
     ) as unknown as SharedTypes.Room);
+
+export const selectAllRooms = ({ firestore: { data } }: RootState) =>
+  !!data.rooms && (Object.values(data.rooms) as unknown as SharedTypes.Room[]);

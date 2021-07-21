@@ -1,3 +1,5 @@
+import firebase from "firebase/app";
+
 export interface SeatInfo {
   id: number;
   column: number;
@@ -152,7 +154,7 @@ export interface Reservation {
 export interface Showtime {
   room_number: number;
   hour: string;
-  date: Date;
+  date: firebase.firestore.Timestamp;
   movie_id: number;
   seats: SeatInfo[];
 }

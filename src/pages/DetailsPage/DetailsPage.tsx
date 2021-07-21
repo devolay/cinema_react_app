@@ -80,11 +80,7 @@ const DetailsPage = () => {
                 <Styles.Bold>{movieDetails ? movieDetails?.runtime + " min" : ""}</Styles.Bold>
               </Styles.Info>
             </Styles.LeftContainer>
-            <Styles.RightContainer>
-              <Styles.ReservationButton variant="outlined" onClick={reserveTickets}>
-                Buy Tickets
-              </Styles.ReservationButton>
-            </Styles.RightContainer>
+            <Styles.RightContainer></Styles.RightContainer>
           </Styles.UpperContainer>
           <Styles.LowerContainer>
             <Styles.CrouselHeader>Top billed cast</Styles.CrouselHeader>
