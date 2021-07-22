@@ -3,7 +3,6 @@ import * as Styles from "./RegisterForm.styles";
 import * as Yup from "yup";
 import { useHistory } from "react-router-dom";
 import { RoutesEnum } from "shared/types";
-import { PHONE_REGEX, PASS_REGEX } from "shared/constants";
 import { useFormik } from "formik";
 import { loginWithEmail, registerWithEmail } from "store/profiles/index";
 
@@ -14,11 +13,6 @@ const validationSchema = Yup.object().shape({
     .required("No password provided")
     .min(8, "Password is too short - should be 8 chars minimum"),
   email: Yup.string().email("The email is incorrect").required("Please enter the e-mail address"),
-  phoneNumber: Yup.string()
-    .matches(PHONE_REGEX, "Phone number is not valid")
-    .min(9, "Phone no. must be atleast 9 digits")
-    .max(9, "Phone no. must be atleast 9 digits")
-    .notRequired(),
 });
 
 const RegisterForm = ({ changeForm }: Types.Props) => {
