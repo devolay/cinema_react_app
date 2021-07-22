@@ -12,11 +12,7 @@ const validationSchema = Yup.object().shape({
   username: Yup.string().min(3, "Too short name").required("Please enter your username"),
   password: Yup.string()
     .required("No password provided")
-    .min(8, "Password is too short - should be 8 chars minimum")
-    .matches(
-      PASS_REGEX,
-      "Password have to contain one uppercase letter, one lowercase, one number and one special character "
-    ),
+    .min(8, "Password is too short - should be 8 chars minimum"),
   email: Yup.string().email("The email is incorrect").required("Please enter the e-mail address"),
   phoneNumber: Yup.string()
     .matches(PHONE_REGEX, "Phone number is not valid")

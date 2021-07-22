@@ -6,18 +6,13 @@ import { RoutesEnum } from "shared/types";
 import { useHistory } from "react-router-dom";
 import { loginWithEmail, loginWithFacebook, loginWithGoogle } from "store/profiles";
 import toast from "react-hot-toast";
-import { PASS_REGEX } from "shared/constants";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("This email is incorrect!").required("Please enter your full email"),
   password: Yup.string()
     .required("No password provided")
-    .min(8, "Password is too short - should be 8 chars minimum")
-    .matches(
-      PASS_REGEX,
-      "Password have to contain one uppercase letter, one lowercase, one number and one special character "
-    ),
+    .min(8, "Password is too short - should be 8 chars minimum"),
 });
 
 const LoginForm = ({ changeForm }: Types.Props) => {
